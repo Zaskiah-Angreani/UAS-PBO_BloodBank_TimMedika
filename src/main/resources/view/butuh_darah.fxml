@@ -43,10 +43,12 @@
                         </columnResizePolicy>
                         <columns>
                             <TableColumn fx:id="colID" text="ID" prefWidth="50"/>
-                            <TableColumn fx:id="colGolDarah" text="Gol. Darah" prefWidth="100"/>
-                            <TableColumn fx:id="colKantong" text="Kantong" prefWidth="80"/>
-                            <TableColumn fx:id="colRS" text="Rumah Sakit" prefWidth="150"/>
-                            <TableColumn fx:id="colTanggal" text="Tanggal" prefWidth="100"/>
+                            <TableColumn fx:id="colGolDarah" text="Gol. Darah" prefWidth="80"/>
+                            <TableColumn fx:id="colKantong" text="Kantong" prefWidth="70"/>
+                            <TableColumn fx:id="colRS" text="Rumah Sakit" prefWidth="120"/>
+                            <TableColumn fx:id="colTanggal" text="Tanggal" prefWidth="80"/>
+                            <TableColumn fx:id="colStatus" text="Status" prefWidth="80"/>
+                            <TableColumn fx:id="colDetail" text="Aksi" prefWidth="100"/>
                         </columns>
                     </TableView>
                 </VBox>

@@ -1,30 +1,40 @@
 package org.bloodblank.model;
 
-public class Request {
-    private String id;
-    private String pasien;
-    private String golDarah;
-    private int kantong;
-    private String rumahSakit; // Ubah dari 'rs' agar lebih jelas
-    private String status;
-    private String tanggal;    // Tambahkan field ini
+import javafx.beans.property.*;
 
-    public Request(String id, String pasien, String golDarah, int kantong, String rumahSakit, String status, String tanggal) {
-        this.id = id;
-        this.pasien = pasien;
-        this.golDarah = golDarah;
-        this.kantong = kantong;
-        this.rumahSakit = rumahSakit;
-        this.status = status;
-        this.tanggal = tanggal;
+public class Request {
+    private final StringProperty id = new SimpleStringProperty();
+    private final StringProperty golDarah = new SimpleStringProperty();
+    private final IntegerProperty kantong = new SimpleIntegerProperty();
+    private final StringProperty rumahSakit = new SimpleStringProperty();
+    private final StringProperty status = new SimpleStringProperty();
+    private final StringProperty tanggal = new SimpleStringProperty();
+    private final StringProperty detail = new SimpleStringProperty();
+
+    public Request(String id, String pasien, String golDarah, int kantong, String rumahSakit, String status, String tanggal, String detail) {
+        this.id.set(id);
+        this.golDarah.set(golDarah);
+        this.kantong.set(kantong);
+        this.rumahSakit.set(rumahSakit);
+        this.status.set(status);
+        this.tanggal.set(tanggal);
+        this.detail.set(detail);
     }
 
-    // Getter yang disesuaikan agar cocok dengan Controller
-    public String getId() { return id; }
-    public String getPasien() { return pasien; }
-    public String getGolDarah() { return golDarah; }
-    public int getKantong() { return kantong; }
-    public String getRumahSakit() { return rumahSakit; } // Cocok dengan "rumahSakit"
-    public String getStatus() { return status; }
-    public String getTanggal() { return tanggal; }      // Cocok dengan "tanggal"
+    // Property Getters (Wajib untuk PropertyValueFactory)
+    public StringProperty idProperty() { return id; }
+    public StringProperty golDarahProperty() { return golDarah; }
+    public IntegerProperty kantongProperty() { return kantong; }
+    public StringProperty rumahSakitProperty() { return rumahSakit; }
+    public StringProperty statusProperty() { return status; }
+    public StringProperty tanggalProperty() { return tanggal; }
+
+    // Getter biasa
+    public String getId() { return id.get(); }
+    public String getGolDarah() { return golDarah.get(); }
+    public int getKantong() { return kantong.get(); }
+    public String getRumahSakit() { return rumahSakit.get(); }
+    public String getStatus() { return status.get(); }
+    public String getTanggal() { return tanggal.get(); }
+    public String getDetail() { return detail.get(); }
 }

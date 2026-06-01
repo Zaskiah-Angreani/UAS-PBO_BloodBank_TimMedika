@@ -1,40 +1,41 @@
 package org.bloodblank.controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.bloodblank.model.Request;
+import org.bloodblank.model.DataRepository;
 
 public class TambahPermintaanController {
     @FXML private TextField inputPasien, inputGolDarah, inputKantong, inputRS;
 
-    // Variabel untuk menyimpan referensi controller utama
-    private ButuhDarahController mainController;
+    @FXML
+    public void handleSimpan() {
+        try {
+            Request newReq = new Request(
+                    "REQ" + (System.currentTimeMillis() % 1000),
+                    inputPasien.getText(),
+                    inputGolDarah.getText(),
+                    Integer.parseInt(inputKantong.getText()),
+                    inputRS.getText(),
+                    "Pending",
+                    java.time.LocalDate.now().toString(),
+                    "Belum ada detail"
+            );
 
-    public void setMainController(ButuhDarahController mainController) {
-        this.mainController = mainController;
+            // Langsung akses Repository utama agar tabel otomatis terupdate
+            DataRepository.getListRequest().add(newReq);
+
+            ((Stage) inputPasien.getScene().getWindow()).close();
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Jumlah kantong harus berupa angka!");
+            alert.showAndWait();
+        }
     }
 
     @FXML
-    public void handleSimpan() {
-        // Buat objek Request baru
-        Request newReq = new Request(
-                "REQ" + System.currentTimeMillis() % 1000, // ID sederhana
-                inputPasien.getText(),
-                inputGolDarah.getText(),
-                Integer.parseInt(inputKantong.getText()),
-                inputRS.getText(),
-                "Pending", // Status default
-                java.time.LocalDate.now().toString()
-        );
-
-        // Kirim data ke controller utama
-        if (mainController != null) {
-            mainController.tambahkanRequest(newReq);
-        }
-
+    public void handleBatal() {
         ((Stage) inputPasien.getScene().getWindow()).close();
     }
-
-    @FXML public void handleBatal() { ((Stage) inputPasien.getScene().getWindow()).close(); }
 }
