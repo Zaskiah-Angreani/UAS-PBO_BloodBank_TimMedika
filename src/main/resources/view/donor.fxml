@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<VBox spacing="20" style="-fx-background-color: #1a1a2e; -fx-padding: 20;"
+      xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.bloodblank.controller.DonorController">
+
+    <Label text="Pilih Permintaan Donor" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+
+    <HBox style="-fx-background-color: #232946; -fx-background-radius: 10; -fx-padding: 20;" alignment="CENTER_LEFT" spacing="20">
+        <Label text="AB-" style="-fx-text-fill: #e94560; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+        <VBox>
+            <Label text="Pasien: Siti Rahayu" style="-fx-text-fill: white; -fx-font-weight: bold;"/>
+            <Label text="RS: RSU Haji | 2 kantong" style="-fx-text-fill: #b3b3b3;"/>
+        </VBox>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="Daftar Donor" styleClass="action-button" style="-fx-background-color: #4caf50; -fx-text-fill: white; -fx-background-radius: 5; -fx-cursor: hand;"/>
+    </HBox>
+
+    <VBox spacing="10" style="-fx-background-color: #232946; -fx-padding: 20; -fx-background-radius: 10;">
+        <Label text="Data Pendonor" style="-fx-text-fill: white; -fx-font-weight: bold;"/>
+        <TextField fx:id="weightField" promptText="Masukkan Berat Badan (kg)" style="-fx-background-color: #1a1a2e; -fx-text-fill: white; -fx-border-color: #444;"/>
+        <Button text="Konfirmasi Pendaftaran" onAction="#handleRegisterDonor"
+                style="-fx-background-color: #e94560; -fx-text-fill: white; -fx-pref-width: 200; -fx-cursor: hand;"/>
+    </VBox>
+</VBox>

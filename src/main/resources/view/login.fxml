@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+
+<StackPane xmlns="http://javafx.com/javafx/17"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="org.bloodblank.controller.LoginController"
+           style="-fx-background-color: #1a1a2e;">
+
+    <stylesheets>
+        <URL value="@/style.css" />
+    </stylesheets>
+
+    <VBox alignment="CENTER" spacing="20.0" maxWidth="400" maxHeight="400">
+
+        <Label text="LOGIN DONOR DARAH" styleClass="header-label"/>
+
+        <TextField fx:id="usernameField" promptText="Username" styleClass="input-field"/>
+
+        <PasswordField fx:id="passwordField" promptText="Password" styleClass="input-field"/>
+
+        <Button text="Login" onAction="#handleLogin" prefWidth="300" styleClass="button"/>
+
+        <Button text="Belum punya akun? Daftar" onAction="#handleGoToRegister"
+                styleClass="link-button" prefWidth="300"/>
+    </VBox>
+</StackPane>
