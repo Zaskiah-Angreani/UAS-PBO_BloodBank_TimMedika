@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<VBox spacing="15" style="-fx-padding: 20; -fx-background-color: #1a1a2e;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.bloodblank.controller.TambahPermintaanController">
+    <Label text="Ajukan Permintaan Darah" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+    <TextField fx:id="inputPasien" promptText="Nama Pasien" />
+    <TextField fx:id="inputGolDarah" promptText="Golongan Darah (Contoh: A+)" />
+    <TextField fx:id="inputKantong" promptText="Jumlah Kantong" />
+    <TextField fx:id="inputRS" promptText="Nama Rumah Sakit" />
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Batal" onAction="#handleBatal" style="-fx-background-color: gray; -fx-text-fill: white;"/>
+        <Button text="Simpan" onAction="#handleSimpan" style="-fx-background-color: #e94560; -fx-text-fill: white;"/>
+    </HBox>
+</VBox>

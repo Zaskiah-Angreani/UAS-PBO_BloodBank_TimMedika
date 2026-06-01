@@ -10,59 +10,69 @@
     <stylesheets> <URL value="@/style.css" /> </stylesheets>
 
     <center>
-        <VBox spacing="20">
-            <!-- Header Statistik -->
-            <HBox spacing="15">
-                <VBox style="-fx-background-color: #232946; -fx-padding: 20; -fx-background-radius: 10;" HBox.hgrow="ALWAYS" alignment="CENTER">
-                    <Label fx:id="statTotal" text="0" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;"/>
-                    <Label text="Total Pengajuan" style="-fx-text-fill: #b3b3b3;"/>
-                </VBox>
-                <VBox style="-fx-background-color: #232946; -fx-padding: 20; -fx-background-radius: 10;" HBox.hgrow="ALWAYS" alignment="CENTER">
-                    <Label fx:id="statPending" text="0" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;"/>
-                    <Label text="Menunggu Verifikasi" style="-fx-text-fill: #b3b3b3;"/>
-                </VBox>
-                <VBox style="-fx-background-color: #232946; -fx-padding: 20; -fx-background-radius: 10;" HBox.hgrow="ALWAYS" alignment="CENTER">
-                    <Label fx:id="statSetuju" text="0" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;"/>
-                    <Label text="Disetujui" style="-fx-text-fill: #b3b3b3;"/>
-                </VBox>
-                <VBox style="-fx-background-color: #232946; -fx-padding: 20; -fx-background-radius: 10;" HBox.hgrow="ALWAYS" alignment="CENTER">
-                    <Label fx:id="statStatus" text="-" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;"/>
-                    <Label text="Open Donor" style="-fx-text-fill: #b3b3b3;"/>
-                </VBox>
-            </HBox>
-
-            <!-- Tabel Daftar -->
-            <VBox style="-fx-background-color: #232946; -fx-padding: 20; -fx-background-radius: 10;">
-                <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-padding: 0 0 10 0;">
-                    <Label text="Daftar Kebutuhan Darah" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;"/>
-                    <Region HBox.hgrow="ALWAYS" />
-                    <Button text="+ Ajukan Permintaan Baru" onAction="#handleTambahBaru" style="-fx-background-color: #e94560; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 15;"/>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: #1a1a2e;" hbarPolicy="NEVER">
+            <VBox spacing="20" style="-fx-padding: 10;">
+                <HBox spacing="15">
+                    <VBox style="-fx-background-color: #232946; -fx-padding: 20; -fx-background-radius: 10;" HBox.hgrow="ALWAYS" alignment="CENTER">
+                        <Label fx:id="statTotal" text="0" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+                        <Label text="Total Pengajuan" style="-fx-text-fill: #b3b3b3;"/>
+                    </VBox>
+                    <VBox style="-fx-background-color: #232946; -fx-padding: 20; -fx-background-radius: 10;" HBox.hgrow="ALWAYS" alignment="CENTER">
+                        <Label fx:id="statPending" text="0" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+                        <Label text="Menunggu Verifikasi" style="-fx-text-fill: #b3b3b3;"/>
+                    </VBox>
+                    <VBox style="-fx-background-color: #232946; -fx-padding: 20; -fx-background-radius: 10;" HBox.hgrow="ALWAYS" alignment="CENTER">
+                        <Label fx:id="statSetuju" text="0" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+                        <Label text="Disetujui" style="-fx-text-fill: #b3b3b3;"/>
+                    </VBox>
+                    <VBox style="-fx-background-color: #232946; -fx-padding: 20; -fx-background-radius: 10;" HBox.hgrow="ALWAYS" alignment="CENTER">
+                        <Label fx:id="statStatus" text="-" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+                        <Label text="Open Donor" style="-fx-text-fill: #b3b3b3;"/>
+                    </VBox>
                 </HBox>
-                <TableView fx:id="tabelRiwayat" prefHeight="150">
-                    <columns>
-                        <TableColumn fx:id="colID" text="ID" prefWidth="80"/>
-                        <TableColumn fx:id="colPasien" text="Pasien/Gol" prefWidth="120"/>
-                        <TableColumn text="Kantong" prefWidth="80"/>
-                        <TableColumn text="Rumah Sakit" prefWidth="150"/>
-                        <TableColumn fx:id="colStatus" text="Status" prefWidth="120"/>
-                        <TableColumn text="Tanggal" prefWidth="100"/>
-                    </columns>
-                </TableView>
+
+                <VBox style="-fx-background-color: #232946; -fx-padding: 20; -fx-background-radius: 10;">
+                    <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-padding: 0 0 10 0;">
+                        <Label text="Daftar Kebutuhan Darah" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;"/>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Button text="+ Ajukan Permintaan Baru" onAction="#handleTambahBaru" style="-fx-background-color: #e94560; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 15;"/>
+                    </HBox>
+                    <TableView fx:id="tabelRiwayat" prefHeight="200">
+                        <columnResizePolicy>
+                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                        </columnResizePolicy>
+                        <columns>
+                            <TableColumn fx:id="colID" text="ID" prefWidth="50"/>
+                            <TableColumn fx:id="colGolDarah" text="Gol. Darah" prefWidth="100"/>
+                            <TableColumn fx:id="colKantong" text="Kantong" prefWidth="80"/>
+                            <TableColumn fx:id="colRS" text="Rumah Sakit" prefWidth="150"/>
+                            <TableColumn fx:id="colTanggal" text="Tanggal" prefWidth="100"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+
+                <GridPane hgap="15" vgap="15" alignment="CENTER">
+                    <columnConstraints> <ColumnConstraints hgrow="ALWAYS" percentWidth="50" /> <ColumnConstraints hgrow="ALWAYS" percentWidth="50" /> </columnConstraints>
+                    <Button text="GOL O+" alignment="CENTER" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="button-darah"/>
+                    <Button text="GOL O-" alignment="CENTER" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="button-darah"/>
+                    <Button text="GOL A+" alignment="CENTER" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="button-darah"/>
+                    <Button text="GOL A-" alignment="CENTER" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="3" styleClass="button-darah"/>
+                    <Button text="GOL B+" alignment="CENTER" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="button-darah"/>
+                    <Button text="GOL B-" alignment="CENTER" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="button-darah"/>
+                    <Button text="GOL AB+" alignment="CENTER" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="button-darah"/>
+                    <Button text="GOL AB-" alignment="CENTER" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="3" styleClass="button-darah"/>
+                </GridPane>
+
+                <VBox styleClass="kiat-donor-box" spacing="10">
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label text="❤️" styleClass="icon-label"/>
+                        <Label text="Kiat donor" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;"/>
+                    </HBox>
+                    <Label text="• Makan dgn baik" styleClass="kiat-text"/>
+                    <Label text="• Minum cukup air" styleClass="kiat-text"/>
+                    <Label text="• Perasaan Hebat" styleClass="kiat-text"/>
+                </VBox>
             </VBox>
-
-            <!-- Grid Golongan Darah (Lengkap 8 Tombol) -->
-            <GridPane hgap="15" vgap="15">
-                <columnConstraints> <ColumnConstraints hgrow="ALWAYS" percentWidth="50" /> <ColumnConstraints hgrow="ALWAYS" percentWidth="50" /> </columnConstraints>
-                <Button text="GOL O+" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="button-darah"/>
-                <Button text="GOL O-" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="button-darah"/>
-                <Button text="GOL A+" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="button-darah"/>
-                <Button text="GOL A-" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="3" styleClass="button-darah"/>
-
-                <Button text="GOL B+" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="button-darah"/>
-                <Button text="GOL B-" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="button-darah"/>
-                <Button text="GOL AB+" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="button-darah"/>
-                <Button text="GOL AB-" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="3" styleClass="button-darah"/>
-            </GridPane>
-        </VBox>
+        </ScrollPane>
     </center>
 </BorderPane>

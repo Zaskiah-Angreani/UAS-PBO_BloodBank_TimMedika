@@ -35,18 +35,23 @@ public class DashboardController {
 
     private void loadPage(String fxml) {
         try {
-            // Memastikan path benar: mencari di folder /view/
+            // Gunakan path absolut dari folder resources
             String path = "/view/" + fxml;
-            System.out.println("DEBUG: Mencoba memuat file: " + path);
+            System.out.println("DEBUG: Mencoba memuat: " + path);
 
-            Parent page = FXMLLoader.load(getClass().getResource(path));
+            // Menggunakan DashboardController.class agar path benar-benar dicari dari root
+            FXMLLoader loader = new FXMLLoader(DashboardController.class.getResource(path));
+            Parent page = loader.load();
 
             // Mengganti konten
             contentArea.getChildren().setAll(page);
             System.out.println("DEBUG: Halaman " + fxml + " berhasil dimuat.");
 
-        } catch (IOException | NullPointerException e) {
-            System.err.println("ERROR: Gagal memuat " + fxml + ". Pastikan file ada di /resources/view/");
+        } catch (IOException e) {
+            System.err.println("ERROR: Gagal memuat file FXML!");
+            e.printStackTrace();
+        } catch (NullPointerException e) {
+            System.err.println("ERROR: File tidak ditemukan di path: /view/" + fxml);
             e.printStackTrace();
         }
     }
