@@ -1,55 +1,59 @@
+/* --- Global Styles --- */
 .root {
     -fx-font-family: "Segoe UI", sans-serif;
     -fx-background-color: #1a1a2e;
 }
 
-/* Judul */
+/* --- Headers --- */
 .header-label {
     -fx-font-size: 24px;
     -fx-font-weight: bold;
     -fx-text-fill: #ffffff;
 }
 
-/* Input Fields */
+/* --- Input Fields (Text & Password) --- */
 .text-field, .password-field, .combo-box {
     -fx-background-color: #16213e;
     -fx-text-fill: white;
     -fx-prompt-text-fill: #a0a0a0;
     -fx-background-radius: 10px;
-    -fx-padding: 12px;
+    -fx-padding: 10px;
     -fx-border-color: #4e4e6a;
     -fx-border-radius: 10px;
+    -fx-border-width: 1px;
 }
 
-/* Tombol Utama (Merah Pink) */
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #e94560;
+}
+
+/* --- Buttons --- */
 .button {
     -fx-background-color: #e94560;
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-background-radius: 10px;
     -fx-cursor: hand;
-    -fx-padding: 10px;
+    -fx-padding: 10px 20px;
 }
 
 .button:hover {
     -fx-background-color: #c9344d;
 }
 
-/* Tombol Hijau */
 .button-hijau {
     -fx-background-color: #4caf50;
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-background-radius: 10px;
     -fx-cursor: hand;
-    -fx-padding: 10px;
+    -fx-padding: 10px 20px;
 }
 
 .button-hijau:hover {
     -fx-background-color: #66bb6a;
 }
 
-/* Tombol Link */
 .link-button {
     -fx-background-color: transparent;
     -fx-text-fill: #a0a0a0;
@@ -57,32 +61,45 @@
     -fx-cursor: hand;
 }
 
-/* Styling Tabel Riwayat (Bersih tanpa garis putih) */
+/* --- TableView (Cleaned) --- */
 .table-view {
     -fx-background-color: #232946;
     -fx-background-radius: 10px;
+    -fx-border-color: transparent;
 }
+
 .table-view .column-header-background {
     -fx-background-color: #16213e;
     -fx-background-radius: 10px 10px 0 0;
 }
+
 .table-view .column-header {
     -fx-background-color: transparent;
+    -fx-padding: 5px;
 }
+
 .table-view .column-header .label {
     -fx-text-fill: white;
     -fx-font-weight: bold;
+    -fx-alignment: CENTER_LEFT;
 }
-.table-row-cell {
-    -fx-background-color: #232946;
+
+.table-view .table-cell {
     -fx-text-fill: white;
-}
-/* Menghapus garis pemisah kolom */
-.table-view .table-column {
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 8px;
     -fx-border-color: transparent;
 }
 
-/* Styling tombol golongan darah */
+.table-row-cell {
+    -fx-background-color: #232946;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #e94560;
+}
+
+/* --- Blood Buttons --- */
 .button-darah {
     -fx-background-color: #232946;
     -fx-text-fill: white;
@@ -95,27 +112,22 @@
     -fx-alignment: CENTER_LEFT;
 }
 
-/* Styling Kiat Donor */
+.button-darah:hover {
+    -fx-background-color: #3e4a7a;
+}
+
+/* --- Kiat Donor --- */
 .kiat-donor-box {
     -fx-background-color: #232946;
     -fx-padding: 20;
     -fx-background-radius: 10;
 }
+
 .kiat-text {
     -fx-text-fill: white;
     -fx-font-size: 14px;
 }
+
 .icon-label {
     -fx-font-size: 20px;
-}
-/* Membuat header dan isi sel lurus ke kiri dengan padding yang sama */
-.table-view .column-header .label {
-    -fx-alignment: CENTER_LEFT;
-    -fx-padding: 0 5 0 5; /* Sesuaikan padding agar lurus dengan isi sel */
-}
-
-.table-view .table-cell {
-    -fx-alignment: CENTER_LEFT;
-    -fx-padding: 0 5 0 5; /* Pastikan padding sel sama dengan header */
-    -fx-text-fill: white;
 }
