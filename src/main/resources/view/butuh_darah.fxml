@@ -43,6 +43,7 @@
                         </columnResizePolicy>
                         <columns>
                             <TableColumn fx:id="colID" text="ID" prefWidth="50"/>
+                            <TableColumn fx:id="colPasien" text="Pasien" prefWidth="100"/>
                             <TableColumn fx:id="colGolDarah" text="Gol. Darah" prefWidth="80"/>
                             <TableColumn fx:id="colKantong" text="Kantong" prefWidth="70"/>
                             <TableColumn fx:id="colRS" text="Rumah Sakit" prefWidth="120"/>
@@ -55,25 +56,15 @@
 
                 <GridPane hgap="15" vgap="15" alignment="CENTER">
                     <columnConstraints> <ColumnConstraints hgrow="ALWAYS" percentWidth="50" /> <ColumnConstraints hgrow="ALWAYS" percentWidth="50" /> </columnConstraints>
-                    <Button text="GOL O+" alignment="CENTER" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="button-darah"/>
-                    <Button text="GOL O-" alignment="CENTER" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="button-darah"/>
-                    <Button text="GOL A+" alignment="CENTER" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="button-darah"/>
-                    <Button text="GOL A-" alignment="CENTER" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="3" styleClass="button-darah"/>
-                    <Button text="GOL B+" alignment="CENTER" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="button-darah"/>
-                    <Button text="GOL B-" alignment="CENTER" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="button-darah"/>
-                    <Button text="GOL AB+" alignment="CENTER" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="button-darah"/>
-                    <Button text="GOL AB-" alignment="CENTER" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="3" styleClass="button-darah"/>
+                    <Button text="GOL O+" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="button-darah"/>
+                    <Button text="GOL O-" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="button-darah"/>
+                    <Button text="GOL A+" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="button-darah"/>
+                    <Button text="GOL A-" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="3" styleClass="button-darah"/>
+                    <Button text="GOL B+" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="button-darah"/>
+                    <Button text="GOL B-" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="button-darah"/>
+                    <Button text="GOL AB+" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="button-darah"/>
+                    <Button text="GOL AB-" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="3" styleClass="button-darah"/>
                 </GridPane>
-
-                <VBox styleClass="kiat-donor-box" spacing="10">
-                    <HBox alignment="CENTER_LEFT" spacing="10">
-                        <Label text="❤️" styleClass="icon-label"/>
-                        <Label text="Kiat donor" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;"/>
-                    </HBox>
-                    <Label text="• Makan dgn baik" styleClass="kiat-text"/>
-                    <Label text="• Minum cukup air" styleClass="kiat-text"/>
-                    <Label text="• Perasaan Hebat" styleClass="kiat-text"/>
-                </VBox>
             </VBox>
         </ScrollPane>
     </center>

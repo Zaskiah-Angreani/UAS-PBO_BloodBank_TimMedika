@@ -10,15 +10,17 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.bloodblank.model.Request;
-import org.bloodblank.model.DataRepository;
+import org.bloodblank.repository.DataRepository;
 import java.io.IOException;
 
 public class ButuhDarahController {
 
-    @FXML private Label statTotal, statPending, statSetuju;
+    // Tambahkan statStatus di sini
+    @FXML private Label statTotal, statPending, statSetuju, statStatus;
     @FXML private TableView<Request> tabelRiwayat;
 
-    @FXML private TableColumn<Request, String> colID, colGolDarah, colRS, colTanggal, colStatus;
+    // Tambahkan colPasien
+    @FXML private TableColumn<Request, String> colID, colPasien, colGolDarah, colRS, colTanggal, colStatus;
     @FXML private TableColumn<Request, Integer> colKantong;
     @FXML private TableColumn<Request, Void> colDetail;
 
@@ -26,21 +28,19 @@ public class ButuhDarahController {
 
     @FXML
     public void initialize() {
-        // Konfigurasi kolom tabel
         setupColumn(colID, "id");
+        setupColumn(colPasien, "pasien"); // Hubungkan dengan field baru
         setupColumn(colGolDarah, "golDarah");
         setupColumn(colKantong, "kantong");
         setupColumn(colRS, "rumahSakit");
         setupColumn(colTanggal, "tanggal");
         setupColumn(colStatus, "status");
 
-        // Membuat tombol di kolom detail
         colDetail.setCellFactory(param -> new TableCell<>() {
             private final Button btn = new Button("Lihat");
             {
                 btn.setOnAction(e -> {
                     Request req = getTableView().getItems().get(getIndex());
-                    // Cek status dengan kapital "DISETUJUI"
                     if ("DISETUJUI".equals(req.getStatus())) {
                         tampilkanDetail(req);
                     } else {
@@ -58,7 +58,6 @@ public class ButuhDarahController {
         tabelRiwayat.setItems(listRequest);
         updateStatistik();
 
-        // Listener untuk update otomatis saat ada penambahan data
         listRequest.addListener((javafx.collections.ListChangeListener<Request>) c -> {
             updateStatistik();
             tabelRiwayat.refresh();
@@ -74,16 +73,17 @@ public class ButuhDarahController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Detail Pengambilan");
         alert.setHeaderText("Instruksi Pengambilan Darah");
-        alert.setContentText("Lokasi Rumah Sakit: " + req.getRumahSakit() +
+        alert.setContentText("Nama Pasien: " + req.getPasien() +
+                "\nRumah Sakit: " + req.getRumahSakit() +
                 "\nDetail: " + req.getDetail());
         alert.show();
     }
 
     private void updateStatistik() {
         statTotal.setText(String.valueOf(listRequest.size()));
-        // Menghitung status berdasarkan format huruf kapital
         statPending.setText(String.valueOf(listRequest.stream().filter(r -> "PENDING".equals(r.getStatus())).count()));
         statSetuju.setText(String.valueOf(listRequest.stream().filter(r -> "DISETUJUI".equals(r.getStatus())).count()));
+        statStatus.setText("SISTEM AKTIF"); // Memberi nilai agar tidak kosong
     }
 
     @FXML
