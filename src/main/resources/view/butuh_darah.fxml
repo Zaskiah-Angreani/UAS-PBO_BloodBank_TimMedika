@@ -55,15 +55,20 @@
                 </VBox>
 
                 <GridPane hgap="15" vgap="15" alignment="CENTER">
-                    <columnConstraints> <ColumnConstraints hgrow="ALWAYS" percentWidth="50" /> <ColumnConstraints hgrow="ALWAYS" percentWidth="50" /> </columnConstraints>
-                    <Button text="GOL O+" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="button-darah"/>
-                    <Button text="GOL O-" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="button-darah"/>
-                    <Button text="GOL A+" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="button-darah"/>
-                    <Button text="GOL A-" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="3" styleClass="button-darah"/>
-                    <Button text="GOL B+" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="button-darah"/>
-                    <Button text="GOL B-" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="button-darah"/>
-                    <Button text="GOL AB+" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="button-darah"/>
-                    <Button text="GOL AB-" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="3" styleClass="button-darah"/>
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="ALWAYS" percentWidth="50" />
+                        <ColumnConstraints hgrow="ALWAYS" percentWidth="50" />
+                    </columnConstraints>
+
+                    <Button text="GOL O+" onAction="#handleLihatStok" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="button-darah"/>
+                    <Button text="GOL O-" onAction="#handleLihatStok" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="button-darah"/>
+                    <Button text="GOL A+" onAction="#handleLihatStok" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="button-darah"/>
+                    <Button text="GOL A-" onAction="#handleLihatStok" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="3" styleClass="button-darah"/>
+
+                    <Button text="GOL B+" onAction="#handleLihatStok" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="button-darah"/>
+                    <Button text="GOL B-" onAction="#handleLihatStok" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="button-darah"/>
+                    <Button text="GOL AB+" onAction="#handleLihatStok" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="button-darah"/>
+                    <Button text="GOL AB-" onAction="#handleLihatStok" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="3" styleClass="button-darah"/>
                 </GridPane>
             </VBox>
         </ScrollPane>

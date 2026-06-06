@@ -1,6 +1,7 @@
 package org.bloodblank.controller;
 
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,16 +11,15 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.bloodblank.model.Request;
+import org.bloodblank.model.StokDarah;
 import org.bloodblank.repository.DataRepository;
 import java.io.IOException;
 
 public class ButuhDarahController {
 
-    // Tambahkan statStatus di sini
     @FXML private Label statTotal, statPending, statSetuju, statStatus;
     @FXML private TableView<Request> tabelRiwayat;
 
-    // Tambahkan colPasien
     @FXML private TableColumn<Request, String> colID, colPasien, colGolDarah, colRS, colTanggal, colStatus;
     @FXML private TableColumn<Request, Integer> colKantong;
     @FXML private TableColumn<Request, Void> colDetail;
@@ -29,7 +29,7 @@ public class ButuhDarahController {
     @FXML
     public void initialize() {
         setupColumn(colID, "id");
-        setupColumn(colPasien, "pasien"); // Hubungkan dengan field baru
+        setupColumn(colPasien, "pasien");
         setupColumn(colGolDarah, "golDarah");
         setupColumn(colKantong, "kantong");
         setupColumn(colRS, "rumahSakit");
@@ -64,6 +64,37 @@ public class ButuhDarahController {
         });
     }
 
+    // --- FITUR BARU: Menampilkan stok darah saat tombol golongan diklik ---
+    @FXML
+    public void handleLihatStok(ActionEvent event) {
+        Button btn = (Button) event.getSource();
+        String golDarah = btn.getText().replace("GOL ", "").trim();
+
+        StokDarah stok = cariStok(golDarah);
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Info Stok " + golDarah);
+        alert.setHeaderText("Informasi Stok Darah");
+
+        if (stok != null) {
+            alert.setContentText("Rumah Sakit: " + stok.getRumahSakit() +
+                    "\nStok Tersedia: " + stok.getJumlahStok() + " kantong");
+        } else {
+            alert.setContentText("Data stok untuk golongan darah " + golDarah + " tidak ditemukan.");
+        }
+        alert.show();
+    }
+
+    private StokDarah cariStok(String golongan) {
+        for (StokDarah s : DataRepository.getListStok()) {
+            if (s.getGolongan().equalsIgnoreCase(golongan)) {
+                return s;
+            }
+        }
+        return null;
+    }
+    // ------------------------------------------------------------------------
+
     private void setupColumn(TableColumn<Request, ?> col, String property) {
         col.setCellValueFactory(new PropertyValueFactory<>(property));
         col.setStyle("-fx-alignment: CENTER_LEFT;");
@@ -83,7 +114,7 @@ public class ButuhDarahController {
         statTotal.setText(String.valueOf(listRequest.size()));
         statPending.setText(String.valueOf(listRequest.stream().filter(r -> "PENDING".equals(r.getStatus())).count()));
         statSetuju.setText(String.valueOf(listRequest.stream().filter(r -> "DISETUJUI".equals(r.getStatus())).count()));
-        statStatus.setText("SISTEM AKTIF"); // Memberi nilai agar tidak kosong
+        statStatus.setText("SISTEM AKTIF");
     }
 
     @FXML
