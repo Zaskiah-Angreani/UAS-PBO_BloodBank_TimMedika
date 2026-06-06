@@ -1,7 +1,7 @@
 package org.bloodblank.controller;
 
 import org.bloodblank.Main;
-import org.bloodblank.model.UserSession;
+import org.bloodblank.model.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import java.io.IOException;
@@ -15,18 +15,26 @@ public class LoginController {
         String user = usernameField.getText();
         String pass = passwordField.getText();
 
-        // Validasi Login
-        if (user.equals(UserSession.registeredUsername) && pass.equals(UserSession.registeredPassword)
-                && !user.isEmpty()) {
+        // LOGIKA VALIDASI BARU
+        // Karena variabel 'registeredUsername' sudah dihapus,
+        // kita melakukan simulasi login (nanti diganti dengan pengecekan ke Repository)
 
-            // Notifikasi Sukses
-            showAlert(Alert.AlertType.INFORMATION, "Sukses", "Login Berhasil! Selamat datang, " + user);
+        if (!user.isEmpty() && !pass.isEmpty()) {
 
-            // Pindah ke Dashboard
+            // 1. Buat user sebagai contoh (Nanti ini diambil dari daftar user terdaftar)
+            User authenticatedUser = new Donor(user, pass, "User Terdaftar", "O+");
+
+            // 2. Simpan ke Sesi (Singleton)
+            UserSession.getInstance().setCurrentUser(authenticatedUser);
+
+            // 3. Notifikasi Sukses
+            showAlert(Alert.AlertType.INFORMATION, "Sukses", "Login Berhasil! Selamat datang, " + authenticatedUser.getNama());
+
+            // 4. Pindah ke Dashboard
             Main.showDashboard();
         } else {
             // Notifikasi Gagal
-            showAlert(Alert.AlertType.ERROR, "Login Gagal", "Username atau Password salah!");
+            showAlert(Alert.AlertType.ERROR, "Login Gagal", "Username atau Password tidak boleh kosong!");
         }
     }
 
@@ -35,7 +43,6 @@ public class LoginController {
         Main.showRegister();
     }
 
-    // Helper method untuk mempermudah menampilkan Alert
     private void showAlert(Alert.AlertType type, String title, String content) {
         Alert alert = new Alert(type);
         alert.setTitle(title);

@@ -1,7 +1,7 @@
 package org.bloodblank.controller;
 
 import org.bloodblank.Main;
-import org.bloodblank.model.UserSession;
+import org.bloodblank.model.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,8 +16,11 @@ public class DashboardController {
     @FXML
     public void initialize() {
         System.out.println("DEBUG: DashboardController berhasil diinisialisasi.");
-        if (usernameLabel != null) {
-            usernameLabel.setText("Halo, " + UserSession.registeredUsername);
+
+        // Memanfaatkan Polymorphism: mengambil info user yang sedang login
+        User currentUser = UserSession.getInstance().getCurrentUser();
+        if (usernameLabel != null && currentUser != null) {
+            usernameLabel.setText("Halo, " + currentUser.getNama());
         }
     }
 
@@ -35,23 +38,12 @@ public class DashboardController {
 
     private void loadPage(String fxml) {
         try {
-            // Gunakan path absolut dari folder resources
             String path = "/view/" + fxml;
-            System.out.println("DEBUG: Mencoba memuat: " + path);
-
-            // Menggunakan DashboardController.class agar path benar-benar dicari dari root
             FXMLLoader loader = new FXMLLoader(DashboardController.class.getResource(path));
             Parent page = loader.load();
-
-            // Mengganti konten
             contentArea.getChildren().setAll(page);
-            System.out.println("DEBUG: Halaman " + fxml + " berhasil dimuat.");
-
         } catch (IOException e) {
-            System.err.println("ERROR: Gagal memuat file FXML!");
-            e.printStackTrace();
-        } catch (NullPointerException e) {
-            System.err.println("ERROR: File tidak ditemukan di path: /view/" + fxml);
+            System.err.println("ERROR: Gagal memuat file FXML: " + fxml);
             e.printStackTrace();
         }
     }
@@ -59,7 +51,7 @@ public class DashboardController {
     @FXML
     public void handleLogout() throws IOException {
         System.out.println("DEBUG: Melakukan Logout.");
-        UserSession.clearSession();
+        UserSession.getInstance().clearSession(); // Menggunakan instance
         Main.showLogin();
     }
 }
