@@ -10,4 +10,10 @@ public class Penerima extends User {
 
     public String getRiwayatPenyakit() { return riwayatPenyakit; }
     public void setRiwayatPenyakit(String riwayatPenyakit) { this.riwayatPenyakit = riwayatPenyakit; }
+
+    @Override
+    public String getRole() { return "PENERIMA"; }
+
+    @Override
+    public String getDisplayInfo() { return "Penerima: " + getNama(); }
 }
