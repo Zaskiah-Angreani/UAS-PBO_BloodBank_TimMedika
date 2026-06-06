@@ -26,8 +26,7 @@ public class ButuhDarahController {
 
     @FXML
     public void initialize() {
-        // MENGGUNAKAN PROPERTY VALUE FACTORY (Standard JavaFX untuk POJO)
-        // Ini akan mencari getter di Request.java (getId, getGolDarah, dll)
+        // Konfigurasi kolom tabel
         setupColumn(colID, "id");
         setupColumn(colGolDarah, "golDarah");
         setupColumn(colKantong, "kantong");
@@ -41,10 +40,11 @@ public class ButuhDarahController {
             {
                 btn.setOnAction(e -> {
                     Request req = getTableView().getItems().get(getIndex());
-                    if ("Disetujui".equals(req.getStatus())) {
+                    // Cek status dengan kapital "DISETUJUI"
+                    if ("DISETUJUI".equals(req.getStatus())) {
                         tampilkanDetail(req);
                     } else {
-                        Alert alert = new Alert(Alert.AlertType.WARNING, "Permintaan masih Pending!");
+                        Alert alert = new Alert(Alert.AlertType.WARNING, "Permintaan masih PENDING!");
                         alert.show();
                     }
                 });
@@ -58,7 +58,7 @@ public class ButuhDarahController {
         tabelRiwayat.setItems(listRequest);
         updateStatistik();
 
-        // Listener untuk update otomatis
+        // Listener untuk update otomatis saat ada penambahan data
         listRequest.addListener((javafx.collections.ListChangeListener<Request>) c -> {
             updateStatistik();
             tabelRiwayat.refresh();
@@ -66,7 +66,6 @@ public class ButuhDarahController {
     }
 
     private void setupColumn(TableColumn<Request, ?> col, String property) {
-        // PropertyValueFactory membaca data dari method get[Property] di kelas Request
         col.setCellValueFactory(new PropertyValueFactory<>(property));
         col.setStyle("-fx-alignment: CENTER_LEFT;");
     }
@@ -82,12 +81,9 @@ public class ButuhDarahController {
 
     private void updateStatistik() {
         statTotal.setText(String.valueOf(listRequest.size()));
-        statPending.setText(String.valueOf(listRequest.stream().filter(r -> "Pending".equals(r.getStatus())).count()));
-        statSetuju.setText(String.valueOf(listRequest.stream().filter(r -> "Disetujui".equals(r.getStatus())).count()));
-    }
-
-    public void tambahkanRequest(Request req) {
-        listRequest.add(req);
+        // Menghitung status berdasarkan format huruf kapital
+        statPending.setText(String.valueOf(listRequest.stream().filter(r -> "PENDING".equals(r.getStatus())).count()));
+        statSetuju.setText(String.valueOf(listRequest.stream().filter(r -> "DISETUJUI".equals(r.getStatus())).count()));
     }
 
     @FXML
@@ -95,7 +91,6 @@ public class ButuhDarahController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/tambah_permintaan.fxml"));
             Parent root = loader.load();
-            TambahPermintaanController controller = loader.getController();
             Stage stage = new Stage();
             stage.setTitle("Tambah Permintaan");
             stage.initModality(Modality.APPLICATION_MODAL);

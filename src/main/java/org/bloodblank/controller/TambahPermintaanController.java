@@ -13,23 +13,33 @@ public class TambahPermintaanController {
     @FXML
     public void handleSimpan() {
         try {
+            // Mengambil input dan mengubah menjadi kapital (dengan trim untuk menghapus spasi di awal/akhir)
+            String golDarahInput = inputGolDarah.getText().trim().toUpperCase();
+            String rsInput = inputRS.getText().trim().toUpperCase();
+            String statusInput = "PENDING"; // Dibuat kapital agar konsisten
+
+            // Membuat objek Request baru
             Request newReq = new Request(
                     "REQ" + (System.currentTimeMillis() % 1000),
-                    inputPasien.getText(),
-                    inputGolDarah.getText(),
+                    inputPasien.getText(), // Nama pasien biarkan apa adanya atau sesuai preferensi
+                    golDarahInput,
                     Integer.parseInt(inputKantong.getText()),
-                    inputRS.getText(),
-                    "Pending",
+                    rsInput,        // Data RS menjadi KAPITAL
+                    statusInput,    // Data Status menjadi KAPITAL
                     java.time.LocalDate.now().toString(),
                     "Belum ada detail"
             );
 
-            // Langsung akses Repository utama agar tabel otomatis terupdate
+            // Menambah langsung ke sumber data utama (Repository)
             DataRepository.getListRequest().add(newReq);
 
+            // Menutup form setelah data berhasil disimpan
             ((Stage) inputPasien.getScene().getWindow()).close();
+
         } catch (NumberFormatException e) {
+            // Memberikan notifikasi jika input kantong bukan angka
             Alert alert = new Alert(Alert.AlertType.ERROR, "Jumlah kantong harus berupa angka!");
+            alert.setHeaderText("Input Tidak Valid");
             alert.showAndWait();
         }
     }
