@@ -2,6 +2,7 @@ package org.bloodblank.controller;
 
 import org.bloodblank.Main;
 import org.bloodblank.model.*;
+import org.bloodblank.repository.DataRepository;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import java.io.IOException;
@@ -18,26 +19,18 @@ public class RegisterController {
         String confirmPass = confirmPasswordField.getText();
 
         // 1. Validasi Input Kosong
-        if (username.isEmpty() || pass.isEmpty()) {
-            showAlert(Alert.AlertType.WARNING, "Peringatan", "Username dan Password tidak boleh kosong!");
+        if (username.isEmpty() || pass.isEmpty() || confirmPass.isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Peringatan", "Semua kolom wajib diisi!");
             return;
         }
 
         // 2. Validasi Kesesuaian Password
         if (pass.equals(confirmPass)) {
-
-            // 3. Membuat Objek User Baru (Penerapan PBO: Membuat instance dari subclass Donor)
-            // Anda bisa menambah logika untuk memilih role (Admin/Donor/Penerima) di sini nantinya
+            // Membuat akun baru dengan nilai default untuk nama dan golongan darah
             User newUser = new Donor(username, pass, "User Baru", "-");
+            DataRepository.getListUser().add(newUser);
 
-            // 4. Menyimpan ke Sesi (Singleton)
-            // Catatan: Di masa depan, simpan user ini ke DataRepository agar tidak hilang saat aplikasi ditutup
-            UserSession.getInstance().setCurrentUser(newUser);
-
-            // 5. Notifikasi Sukses
-            showAlert(Alert.AlertType.INFORMATION, "Registrasi Sukses", "Akun berhasil dibuat! Selamat datang, " + username);
-
-            // 6. Kembali ke Login
+            showAlert(Alert.AlertType.INFORMATION, "Sukses", "Registrasi berhasil! Silakan login.");
             Main.showLogin();
         } else {
             showAlert(Alert.AlertType.ERROR, "Error", "Password tidak cocok!");

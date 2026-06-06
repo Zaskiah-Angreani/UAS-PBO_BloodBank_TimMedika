@@ -2,6 +2,7 @@ package org.bloodblank.controller;
 
 import org.bloodblank.Main;
 import org.bloodblank.model.*;
+import org.bloodblank.repository.DataRepository;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import java.io.IOException;
@@ -15,22 +16,27 @@ public class LoginController {
         String user = usernameField.getText();
         String pass = passwordField.getText();
 
-        // 1. Login Admin Khusus
+        // 1. Cek Admin
         if (user.equals("admin") && pass.equals("admin111")) {
             Main.showAdminDashboard();
             return;
         }
 
-        // 2. Logika Login User Biasa
-        if (!user.isEmpty() && !pass.isEmpty()) {
-            // Simulasi user terdaftar
-            User authenticatedUser = new Donor(user, pass, "User Terdaftar", "O+");
-            UserSession.getInstance().setCurrentUser(authenticatedUser);
+        // 2. Cek User di Repository
+        User foundUser = null;
+        for (User u : DataRepository.getListUser()) {
+            if (u.getUsername().equals(user) && u.getPassword().equals(pass)) {
+                foundUser = u;
+                break;
+            }
+        }
 
-            showAlert(Alert.AlertType.INFORMATION, "Sukses", "Login Berhasil! Selamat datang, " + authenticatedUser.getNama());
+        if (foundUser != null) {
+            UserSession.getInstance().setCurrentUser(foundUser);
+            showAlert(Alert.AlertType.INFORMATION, "Sukses", "Login Berhasil! Selamat datang, " + foundUser.getNama());
             Main.showDashboard();
         } else {
-            showAlert(Alert.AlertType.ERROR, "Login Gagal", "Username atau Password tidak boleh kosong!");
+            showAlert(Alert.AlertType.ERROR, "Login Gagal", "Username atau Password salah atau belum terdaftar!");
         }
     }
 
