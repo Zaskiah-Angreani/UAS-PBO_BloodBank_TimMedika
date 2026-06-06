@@ -11,13 +11,15 @@ public abstract class User {
         this.nama = nama;
     }
 
-    // Getter dan Setter untuk Encapsulation
+    // Abstract methods untuk Polymorphism
+    public abstract String getRole();
+    public abstract String getDisplayInfo();
+
+    // Getters & Setters
     public String getUsername() { return username; }
     public void setUsername(String username) { this.username = username; }
-
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
-
     public String getNama() { return nama; }
     public void setNama(String nama) { this.nama = nama; }
 }

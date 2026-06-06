@@ -1,18 +1,30 @@
 package org.bloodblank.model;
 
 public class UserSession {
-    public static String registeredUsername = "";
-    public static String registeredPassword = "";
+    private static UserSession instance;
+    private User currentUser;
 
-    // Data tambahan untuk profil
-    public static String fullName = "User Baru";
-    public static String bloodType = "-";
+    // Private constructor agar tidak bisa di-instansiasi dari luar
+    private UserSession() {}
 
-    // Method untuk membersihkan sesi saat Logout
-    public static void clearSession() {
-        registeredUsername = "";
-        registeredPassword = "";
-        fullName = "User Baru";
-        bloodType = "-";
+    // Singleton instance access
+    public static UserSession getInstance() {
+        if (instance == null) {
+            instance = new UserSession();
+        }
+        return instance;
+    }
+
+    // Encapsulated setters/getters
+    public void setCurrentUser(User user) {
+        this.currentUser = user;
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public void clearSession() {
+        this.currentUser = null;
     }
 }

@@ -5,7 +5,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.bloodblank.model.Request;
-import org.bloodblank.model.DataRepository;
+import org.bloodblank.repository.DataRepository;
 
 public class TambahPermintaanController {
     @FXML private TextField inputPasien, inputGolDarah, inputKantong, inputRS;

@@ -1,7 +1,8 @@
-package org.bloodblank.model;
+package org.bloodblank.repository;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.bloodblank.model.Request;
 
 /**
  * CATATAN PENGEMBANG:
