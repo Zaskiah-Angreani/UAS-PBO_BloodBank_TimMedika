@@ -4,7 +4,7 @@ import javafx.beans.property.*;
 
 public class Request {
     private final StringProperty id = new SimpleStringProperty();
-    private final StringProperty pasien = new SimpleStringProperty(); // Fixed
+    private final StringProperty pasien = new SimpleStringProperty();
     private final StringProperty golDarah = new SimpleStringProperty();
     private final IntegerProperty kantong = new SimpleIntegerProperty();
     private final StringProperty rumahSakit = new SimpleStringProperty();
@@ -42,4 +42,14 @@ public class Request {
     public String getStatus() { return status.get(); }
     public String getTanggal() { return tanggal.get(); }
     public String getDetail() { return detail.get(); }
+
+    // --- SETTERS (Fixed untuk JavaFX Properties) ---
+
+    public void setStatus(String status) {
+        this.status.set(status);
+    }
+
+    public void setDetail(String detail) {
+        this.detail.set(detail);
+    }
 }
