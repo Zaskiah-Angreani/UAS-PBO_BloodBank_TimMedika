@@ -14,47 +14,62 @@ public class TambahPermintaanController {
     @FXML
     public void handleSimpan() {
         try {
+            // Mengambil input dan normalisasi
             String golDarahInput = inputGolDarah.getText().trim().toUpperCase();
             String rsInput = inputRS.getText().trim().toUpperCase();
+
+            // Validasi input angka
+            if (inputKantong.getText().isEmpty()) {
+                showAlert(Alert.AlertType.ERROR, "Input Kosong", "Jumlah kantong wajib diisi!");
+                return;
+            }
             int jumlahKantong = Integer.parseInt(inputKantong.getText());
 
-            // 1. Logika Validasi & Pengurangan Stok (PBO: Business Logic)
+            // 1. Logika Validasi: Pastikan Golongan Darah DAN Rumah Sakit ada di database
             StokDarah stokTarget = null;
+            boolean rsValid = false;
+
             for (StokDarah stok : DataRepository.getListStok()) {
+                // Cek golongan darah terlebih dahulu
                 if (stok.getGolongan().equalsIgnoreCase(golDarahInput)) {
-                    stokTarget = stok;
-                    break;
+                    // Cek apakah RS ini menyediakan golongan darah tersebut
+                    if (stok.getRumahSakit().equalsIgnoreCase(rsInput)) {
+                        stokTarget = stok;
+                        rsValid = true;
+                        break;
+                    }
                 }
             }
 
-            if (stokTarget == null) {
-                showAlert(Alert.AlertType.ERROR, "Error", "Golongan darah tidak ditemukan!");
+            // 2. Handling Error Validasi
+            if (!rsValid) {
+                showAlert(Alert.AlertType.ERROR, "Error", "Golongan darah atau Rumah Sakit tidak tersedia/tidak cocok!");
                 return;
             }
 
             if (stokTarget.getJumlahStok() < jumlahKantong) {
-                showAlert(Alert.AlertType.WARNING, "Stok Kurang", "Stok hanya tersedia: " + stokTarget.getJumlahStok());
+                showAlert(Alert.AlertType.WARNING, "Stok Kurang", "Stok hanya tersedia: " + stokTarget.getJumlahStok() + " kantong.");
                 return;
             }
 
-            // 2. Kurangi stok setelah validasi lulus
+            // 3. Eksekusi: Kurangi Stok
             stokTarget.setJumlahStok(stokTarget.getJumlahStok() - jumlahKantong);
 
-            // 3. Simpan Permintaan Baru
+            // 4. Simpan Request Baru
             Request newReq = new Request(
                     "REQ" + (System.currentTimeMillis() % 1000),
-                    inputPasien.getText(),
+                    inputPasien.getText().trim(),
                     golDarahInput,
                     jumlahKantong,
-                    rsInput,
+                    rsInput, // Sudah dalam format UPPERCASE
                     "PENDING",
                     java.time.LocalDate.now().toString(),
-                    "Rumah Sakit: " + rsInput
+                    "Tersedia di: " + rsInput
             );
 
             DataRepository.getListRequest().add(newReq);
 
-            showAlert(Alert.AlertType.INFORMATION, "Sukses", "Permintaan berhasil diajukan & stok diperbarui!");
+            showAlert(Alert.AlertType.INFORMATION, "Sukses", "Permintaan berhasil diajukan dan stok telah diperbarui.");
             ((Stage) inputPasien.getScene().getWindow()).close();
 
         } catch (NumberFormatException e) {
