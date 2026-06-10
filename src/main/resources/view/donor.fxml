@@ -1,27 +1,125 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
+<?import java.net.URL?>
 
-<VBox spacing="20" style="-fx-background-color: #1a1a2e; -fx-padding: 20;"
-      xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="org.bloodblank.controller.DonorController">
+<BorderPane style="-fx-background-color: #1a1a2e; -fx-padding: 20;"
+            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.bloodblank.controller.DonorController">
 
-    <Label text="Pilih Permintaan Donor" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+    <stylesheets> <URL value="@/style.css" /> </stylesheets>
 
-    <HBox style="-fx-background-color: #232946; -fx-background-radius: 10; -fx-padding: 20;" alignment="CENTER_LEFT" spacing="20">
-        <Label text="AB-" style="-fx-text-fill: #e94560; -fx-font-size: 24px; -fx-font-weight: bold;"/>
-        <VBox>
-            <Label text="Pasien: Siti Rahayu" style="-fx-text-fill: white; -fx-font-weight: bold;"/>
-            <Label text="RS: RSU Haji | 2 kantong" style="-fx-text-fill: #b3b3b3;"/>
-        </VBox>
-        <Region HBox.hgrow="ALWAYS"/>
-        <Button text="Daftar Donor" styleClass="action-button" style="-fx-background-color: #4caf50; -fx-text-fill: white; -fx-background-radius: 5; -fx-cursor: hand;"/>
-    </HBox>
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: #1a1a2e;" hbarPolicy="NEVER">
+            <VBox spacing="20" style="-fx-padding: 10;">
 
-    <VBox spacing="10" style="-fx-background-color: #232946; -fx-padding: 20; -fx-background-radius: 10;">
-        <Label text="Data Pendonor" style="-fx-text-fill: white; -fx-font-weight: bold;"/>
-        <TextField fx:id="weightField" promptText="Masukkan Berat Badan (kg)" style="-fx-background-color: #1a1a2e; -fx-text-fill: white; -fx-border-color: #444;"/>
-        <Button text="Konfirmasi Pendaftaran" onAction="#handleRegisterDonor"
-                style="-fx-background-color: #e94560; -fx-text-fill: white; -fx-pref-width: 200; -fx-cursor: hand;"/>
-    </VBox>
-</VBox>
+                <!-- === HEADER === -->
+                <HBox alignment="CENTER_LEFT" spacing="15">
+                    <VBox spacing="5" HBox.hgrow="ALWAYS">
+                        <Label text="🩸 Halaman Mendonor Darah" style="-fx-text-fill: white; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+                        <Label text="Daftarkan diri Anda sebagai pendonor untuk membantu sesama yang membutuhkan."
+                               style="-fx-text-fill: #b3b3b3; -fx-font-size: 14px;"/>
+                    </VBox>
+                    <Button text="+ Daftarkan Diri Sebagai Pendonor" onAction="#handleDaftarSukarela"
+                            style="-fx-background-color: #4caf50; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 12 20; -fx-background-radius: 10; -fx-cursor: hand; -fx-font-size: 13px;"/>
+                </HBox>
+
+                <!-- === STATISTIK KARTU === -->
+                <HBox spacing="15">
+                    <VBox style="-fx-background-color: #232946; -fx-padding: 20; -fx-background-radius: 10;" HBox.hgrow="ALWAYS" alignment="CENTER">
+                        <Label fx:id="statTotalDonor" text="0" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+                        <Label text="Total Pendaftaran" style="-fx-text-fill: #b3b3b3;"/>
+                    </VBox>
+                    <VBox style="-fx-background-color: #232946; -fx-padding: 20; -fx-background-radius: 10;" HBox.hgrow="ALWAYS" alignment="CENTER">
+                        <Label fx:id="statMenunggu" text="0" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+                        <Label text="Menunggu Konfirmasi" style="-fx-text-fill: #b3b3b3;"/>
+                    </VBox>
+                    <VBox style="-fx-background-color: #232946; -fx-padding: 20; -fx-background-radius: 10;" HBox.hgrow="ALWAYS" alignment="CENTER">
+                        <Label fx:id="statDiterima" text="0" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+                        <Label text="Diterima" style="-fx-text-fill: #b3b3b3;"/>
+                    </VBox>
+                    <VBox style="-fx-background-color: #232946; -fx-padding: 20; -fx-background-radius: 10;" HBox.hgrow="ALWAYS" alignment="CENTER">
+                        <Label fx:id="statSukarela" text="0" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+                        <Label text="Donor Sukarela" style="-fx-text-fill: #b3b3b3;"/>
+                    </VBox>
+                </HBox>
+
+                <!-- === TABEL PERMINTAAN DARAH YANG TERSEDIA === -->
+                <VBox style="-fx-background-color: #232946; -fx-padding: 20; -fx-background-radius: 10;">
+                    <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-padding: 0 0 10 0;">
+                        <Label text="📋 Daftar Permintaan Darah yang Membutuhkan Donor" style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;"/>
+                    </HBox>
+                    <Label text="Pilih permintaan di bawah ini lalu klik 'Daftar Donor' untuk mendaftarkan diri Anda."
+                           style="-fx-text-fill: #b3b3b3; -fx-font-size: 12px; -fx-padding: 0 0 10 0;"/>
+                    <TableView fx:id="tabelPermintaan" prefHeight="200">
+                        <columnResizePolicy>
+                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                        </columnResizePolicy>
+                        <columns>
+                            <TableColumn fx:id="colIdReq" text="ID" prefWidth="50"/>
+                            <TableColumn fx:id="colPasienReq" text="Pasien" prefWidth="100"/>
+                            <TableColumn fx:id="colGolReq" text="Gol. Darah" prefWidth="80"/>
+                            <TableColumn fx:id="colKantongReq" text="Kantong" prefWidth="70"/>
+                            <TableColumn fx:id="colRsReq" text="Rumah Sakit" prefWidth="120"/>
+                            <TableColumn fx:id="colTanggalReq" text="Tanggal" prefWidth="80"/>
+                            <TableColumn fx:id="colStatusReq" text="Status" prefWidth="80"/>
+                            <TableColumn fx:id="colAksiReq" text="Aksi" prefWidth="120"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+
+                <!-- === RIWAYAT PENDAFTARAN DONOR === -->
+                <VBox style="-fx-background-color: #232946; -fx-padding: 20; -fx-background-radius: 10;">
+                    <Label text="📜 Riwayat Pendaftaran Donor Anda" style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 0 0 10 0;"/>
+                    <TableView fx:id="tabelRiwayatDonor" prefHeight="180">
+                        <columnResizePolicy>
+                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                        </columnResizePolicy>
+                        <columns>
+                            <TableColumn fx:id="colIdDonor" text="ID Donor" prefWidth="70"/>
+                            <TableColumn fx:id="colNamaDonor" text="Nama Donor" prefWidth="120"/>
+                            <TableColumn fx:id="colGolDonor" text="Gol. Darah" prefWidth="80"/>
+                            <TableColumn fx:id="colBeratDonor" text="Berat (kg)" prefWidth="70"/>
+                            <TableColumn fx:id="colRsDonor" text="Rumah Sakit" prefWidth="120"/>
+                            <TableColumn fx:id="colTglDonor" text="Tanggal" prefWidth="80"/>
+                            <TableColumn fx:id="colStatusDonor" text="Status" prefWidth="100"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+
+                <!-- === INFO STOK DARAH (Tombol Golongan Darah) === -->
+                <VBox style="-fx-background-color: #232946; -fx-padding: 20; -fx-background-radius: 10;">
+                    <Label text="🏥 Cek Ketersediaan Stok Darah" style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 0 0 10 0;"/>
+                    <GridPane hgap="15" vgap="15" alignment="CENTER">
+                        <columnConstraints>
+                            <ColumnConstraints hgrow="ALWAYS" percentWidth="50" />
+                            <ColumnConstraints hgrow="ALWAYS" percentWidth="50" />
+                        </columnConstraints>
+
+                        <Button text="GOL O+" onAction="#handleLihatStok" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="button-darah"/>
+                        <Button text="GOL O-" onAction="#handleLihatStok" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="button-darah"/>
+                        <Button text="GOL A+" onAction="#handleLihatStok" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="button-darah"/>
+                        <Button text="GOL A-" onAction="#handleLihatStok" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="3" styleClass="button-darah"/>
+
+                        <Button text="GOL B+" onAction="#handleLihatStok" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="button-darah"/>
+                        <Button text="GOL B-" onAction="#handleLihatStok" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="button-darah"/>
+                        <Button text="GOL AB+" onAction="#handleLihatStok" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="button-darah"/>
+                        <Button text="GOL AB-" onAction="#handleLihatStok" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="3" styleClass="button-darah"/>
+                    </GridPane>
+                </VBox>
+
+                <!-- === KIAT DONOR === -->
+                <VBox styleClass="kiat-donor-box" spacing="10">
+                    <Label text="💡 Kiat Sebelum Mendonor Darah" style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;"/>
+                    <Label text="1. Pastikan Anda dalam kondisi sehat dan cukup tidur (minimal 5 jam)." styleClass="kiat-text" wrapText="true"/>
+                    <Label text="2. Makan dan minum yang cukup sebelum donor, hindari makanan berlemak." styleClass="kiat-text" wrapText="true"/>
+                    <Label text="3. Berat badan minimal 45 kg dan usia antara 17-65 tahun." styleClass="kiat-text" wrapText="true"/>
+                    <Label text="4. Tidak sedang mengonsumsi obat-obatan tertentu atau dalam masa pengobatan." styleClass="kiat-text" wrapText="true"/>
+                    <Label text="5. Interval donor minimal 2-3 bulan sejak donor terakhir." styleClass="kiat-text" wrapText="true"/>
+                    <Label text="6. Bawa identitas diri (KTP/SIM) saat datang ke lokasi donor." styleClass="kiat-text" wrapText="true"/>
+                </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

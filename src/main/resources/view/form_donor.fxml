@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import java.net.URL?>
+
+<VBox spacing="15" style="-fx-padding: 25; -fx-background-color: #1a1a2e;" prefWidth="450"
+      xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.bloodblank.controller.FormDonorController">
+
+    <stylesheets> <URL value="@/style.css" /> </stylesheets>
+
+    <!-- Header -->
+    <Label text="🩸 Formulir Pendaftaran Donor" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+    <Label text="Isi data berikut untuk mendaftarkan diri sebagai pendonor." style="-fx-text-fill: #b3b3b3; -fx-font-size: 12px;"/>
+
+    <!-- Info Permintaan yang Dipilih -->
+    <VBox style="-fx-background-color: #232946; -fx-padding: 15; -fx-background-radius: 10;" spacing="8">
+        <Label text="📋 Detail Permintaan Darah:" style="-fx-text-fill: #e94560; -fx-font-weight: bold; -fx-font-size: 14px;"/>
+        <HBox spacing="10">
+            <Label text="Pasien:" style="-fx-text-fill: #b3b3b3; -fx-min-width: 100;"/>
+            <Label fx:id="labelPasien" text="-" style="-fx-text-fill: white; -fx-font-weight: bold;"/>
+        </HBox>
+        <HBox spacing="10">
+            <Label text="Gol. Darah:" style="-fx-text-fill: #b3b3b3; -fx-min-width: 100;"/>
+            <Label fx:id="labelGolDarah" text="-" style="-fx-text-fill: #e94560; -fx-font-weight: bold; -fx-font-size: 16px;"/>
+        </HBox>
+        <HBox spacing="10">
+            <Label text="Rumah Sakit:" style="-fx-text-fill: #b3b3b3; -fx-min-width: 100;"/>
+            <Label fx:id="labelRS" text="-" style="-fx-text-fill: white;"/>
+        </HBox>
+        <HBox spacing="10">
+            <Label text="Kebutuhan:" style="-fx-text-fill: #b3b3b3; -fx-min-width: 100;"/>
+            <Label fx:id="labelKantong" text="-" style="-fx-text-fill: white;"/>
+        </HBox>
+    </VBox>
+
+    <!-- Form Input Data Donor -->
+    <VBox style="-fx-background-color: #232946; -fx-padding: 15; -fx-background-radius: 10;" spacing="10">
+        <Label text="📝 Data Pendonor:" style="-fx-text-fill: #e94560; -fx-font-weight: bold; -fx-font-size: 14px;"/>
+
+        <Label text="Nama Lengkap" style="-fx-text-fill: #b3b3b3;"/>
+        <TextField fx:id="inputNamaDonor" promptText="Masukkan nama lengkap Anda"/>
+
+        <Label text="Golongan Darah" style="-fx-text-fill: #b3b3b3;"/>
+        <ComboBox fx:id="comboGolDarah" promptText="Pilih golongan darah Anda" maxWidth="Infinity"/>
+
+        <Label text="Berat Badan (kg)" style="-fx-text-fill: #b3b3b3;"/>
+        <TextField fx:id="inputBeratBadan" promptText="Minimal 45 kg"/>
+
+        <Label text="Usia (tahun)" style="-fx-text-fill: #b3b3b3;"/>
+        <TextField fx:id="inputUsia" promptText="17 - 65 tahun"/>
+
+        <CheckBox fx:id="checkRiwayat" text="Saya memiliki riwayat penyakit menular (HIV, Hepatitis, dll)"
+                  style="-fx-text-fill: #b3b3b3; -fx-padding: 5 0 0 0;"/>
+    </VBox>
+
+    <!-- Tombol Aksi -->
+    <HBox spacing="10" alignment="CENTER_RIGHT" style="-fx-padding: 5 0 0 0;">
+        <Button text="Batal" onAction="#handleBatal"
+                style="-fx-background-color: #555; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 25; -fx-background-radius: 8; -fx-cursor: hand;"/>
+        <Button text="Daftar Sebagai Donor" onAction="#handleDaftar"
+                style="-fx-background-color: #4caf50; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 25; -fx-background-radius: 8; -fx-cursor: hand;"/>
+    </HBox>
+</VBox>

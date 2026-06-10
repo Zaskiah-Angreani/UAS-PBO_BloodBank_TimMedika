@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import java.net.URL?>
+
+<VBox spacing="0" style="-fx-background-color: #1a1a2e;" prefWidth="480" prefHeight="620"
+      xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.bloodblank.controller.FormDonorSukarelaController">
+
+    <stylesheets> <URL value="@/style.css" /> </stylesheets>
+
+    <!-- Scrollable Content Area -->
+    <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;"
+                VBox.vgrow="ALWAYS">
+        <VBox spacing="15" style="-fx-padding: 25 25 15 25;">
+
+            <!-- Header -->
+            <Label text="🩸 Formulir Donor Sukarela"
+                   style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+            <Label text="Daftarkan diri Anda sebagai pendonor darah sukarela tanpa perlu menunggu permintaan."
+                   style="-fx-text-fill: #b3b3b3; -fx-font-size: 12px;" wrapText="true"/>
+
+            <!-- Informasi Donor Sukarela -->
+            <VBox style="-fx-background-color: #232946; -fx-padding: 15; -fx-background-radius: 10;" spacing="8">
+                <Label text="ℹ️ Tentang Donor Sukarela:"
+                       style="-fx-text-fill: #4caf50; -fx-font-weight: bold; -fx-font-size: 14px;"/>
+                <Label text="Dengan mendaftar sebagai pendonor sukarela, data Anda akan tersedia dalam sistem kami. Ketika ada pasien yang membutuhkan darah dengan golongan yang sesuai, kami akan menghubungi Anda."
+                       style="-fx-text-fill: #b3b3b3; -fx-font-size: 12px;" wrapText="true"/>
+                <Label text="Anda juga dapat langsung datang ke rumah sakit pilihan Anda untuk mendonorkan darah."
+                       style="-fx-text-fill: #b3b3b3; -fx-font-size: 12px;" wrapText="true"/>
+            </VBox>
+
+            <!-- Form Input Data Donor -->
+            <VBox style="-fx-background-color: #232946; -fx-padding: 15; -fx-background-radius: 10;" spacing="10">
+                <Label text="📝 Data Pendonor:"
+                       style="-fx-text-fill: #e94560; -fx-font-weight: bold; -fx-font-size: 14px;"/>
+
+                <Label text="Nama Lengkap" style="-fx-text-fill: #b3b3b3;"/>
+                <TextField fx:id="inputNamaDonor" promptText="Masukkan nama lengkap Anda"/>
+
+                <Label text="Golongan Darah" style="-fx-text-fill: #b3b3b3;"/>
+                <ComboBox fx:id="comboGolDarah" promptText="Pilih golongan darah Anda" maxWidth="Infinity"/>
+
+                <Label text="Berat Badan (kg)" style="-fx-text-fill: #b3b3b3;"/>
+                <TextField fx:id="inputBeratBadan" promptText="Minimal 45 kg"/>
+
+                <Label text="Usia (tahun)" style="-fx-text-fill: #b3b3b3;"/>
+                <TextField fx:id="inputUsia" promptText="17 - 65 tahun"/>
+
+                <Label text="Rumah Sakit Tujuan Donor" style="-fx-text-fill: #b3b3b3;"/>
+                <ComboBox fx:id="comboRumahSakit" promptText="Pilih rumah sakit tujuan" maxWidth="Infinity"/>
+
+                <CheckBox fx:id="checkRiwayat"
+                          text="Saya memiliki riwayat penyakit menular (HIV, Hepatitis, dll)"
+                          style="-fx-text-fill: #b3b3b3; -fx-padding: 5 0 0 0;"/>
+            </VBox>
+
+        </VBox>
+    </ScrollPane>
+
+    <!-- Tombol Aksi (FIXED di bawah, tidak ikut scroll) -->
+    <HBox spacing="10" alignment="CENTER_RIGHT"
+          style="-fx-padding: 15 25; -fx-background-color: #1a1a2e; -fx-border-color: #2a2a4e transparent transparent transparent; -fx-border-width: 1 0 0 0;">
+        <Button text="Batal" onAction="#handleBatal"
+                style="-fx-background-color: #555; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 25; -fx-background-radius: 8; -fx-cursor: hand;"/>
+        <Button text="Daftar Sebagai Pendonor" onAction="#handleDaftar"
+                style="-fx-background-color: #4caf50; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 25; -fx-background-radius: 8; -fx-cursor: hand;"/>
+    </HBox>
+</VBox>
