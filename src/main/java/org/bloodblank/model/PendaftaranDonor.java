@@ -50,4 +50,5 @@ public class PendaftaranDonor {
 
     // Setters
     public void setStatus(String status) { this.status.set(status); }
+    public void setRequestId(String requestId) { this.requestId.set(requestId); }
 }

@@ -66,6 +66,7 @@
     -fx-background-color: #232946;
     -fx-background-radius: 10px;
     -fx-border-color: transparent;
+    -fx-background-insets: 0;
 }
 
 .table-view .column-header-background {
@@ -84,6 +85,14 @@
     -fx-alignment: CENTER_LEFT;
 }
 
+/* Hapus kotak putih panjang (filler column) di header tabel */
+.table-view .filler {
+    -fx-background-color: transparent;
+}
+.table-view .column-header-background .filler {
+    -fx-background-color: transparent;
+}
+
 .table-view .table-cell {
     -fx-text-fill: white;
     -fx-alignment: CENTER_LEFT;
@@ -97,6 +106,117 @@
 
 .table-row-cell:selected {
     -fx-background-color: #e94560;
+}
+
+/* Baris kosong (empty rows) juga harus gelap, bukan putih */
+.table-row-cell:empty {
+    -fx-background-color: #232946;
+}
+.table-row-cell:empty .table-cell {
+    -fx-border-color: transparent;
+}
+
+/* Placeholder tabel (saat tidak ada data) */
+.table-view .placeholder .label {
+    -fx-text-fill: #8888aa;
+}
+
+/* Hapus scrollbar vertikal di tabel */
+.table-view .scroll-bar:vertical {
+    -fx-pref-width: 0;
+    -fx-max-width: 0;
+    -fx-opacity: 0;
+}
+.table-view .scroll-bar:vertical .track,
+.table-view .scroll-bar:vertical .thumb,
+.table-view .scroll-bar:vertical .increment-button,
+.table-view .scroll-bar:vertical .decrement-button {
+    -fx-pref-width: 0;
+    -fx-max-width: 0;
+    -fx-opacity: 0;
+}
+.table-view .scroll-bar:horizontal {
+    -fx-pref-height: 0;
+    -fx-max-height: 0;
+    -fx-opacity: 0;
+}
+
+/* Hapus corner putih di tabel (intersection antara scrollbar) */
+.table-view .corner {
+    -fx-background-color: transparent;
+}
+
+/* --- ScrollPane (Admin Dashboard) --- */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+.scroll-pane .scroll-bar:vertical .track {
+    -fx-background-color: rgba(255,255,255,0.03);
+    -fx-background-radius: 4;
+}
+.scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(255,255,255,0.12);
+    -fx-background-radius: 4;
+}
+.scroll-pane .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: rgba(255,255,255,0.2);
+}
+.scroll-pane .scroll-bar:vertical .increment-button,
+.scroll-pane .scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+/* --- Alert / Dialog --- */
+.dialog-pane {
+    -fx-background-color: #1a1a2e;
+}
+.dialog-pane .header-panel {
+    -fx-background-color: #232946;
+    -fx-padding: 15;
+}
+.dialog-pane .header-panel .label {
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+.dialog-pane .content .label {
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 13px;
+}
+.dialog-pane .button-bar {
+    -fx-background-color: rgba(0, 0, 0, 0.2);
+    -fx-padding: 10 15;
+}
+.dialog-pane .button-bar .button {
+    -fx-background-color: #3e4a7a;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-padding: 8 20;
+    -fx-cursor: hand;
+}
+.dialog-pane .button-bar .button:hover {
+    -fx-background-color: #4e5a8a;
+}
+/* TextField di dalam dialog */
+.dialog-pane .text-field {
+    -fx-background-color: #16213e;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #a0a0a0;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #4e4e6a;
+    -fx-border-width: 1;
+    -fx-padding: 8 12;
+}
+/* Graphic icon di alert */
+.dialog-pane .graphic-container {
+    -fx-padding: 10;
 }
 
 /* --- Blood Buttons --- */
@@ -130,4 +250,25 @@
 
 .icon-label {
     -fx-font-size: 20px;
+}
+
+/* --- ListView (untuk dialog pasangkan donor) --- */
+.list-view {
+    -fx-background-color: #232946;
+    -fx-background-insets: 0;
+}
+.list-view .list-cell {
+    -fx-background-color: #232946;
+    -fx-text-fill: #e0e0e0;
+    -fx-padding: 8 12;
+}
+.list-view .list-cell:selected {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+}
+.list-view .list-cell:hover {
+    -fx-background-color: #2a3a5e;
+}
+.list-view .list-cell:empty {
+    -fx-background-color: #232946;
 }

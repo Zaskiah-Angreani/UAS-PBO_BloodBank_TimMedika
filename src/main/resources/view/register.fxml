@@ -15,9 +15,18 @@
     <VBox alignment="CENTER" spacing="15.0" maxWidth="400">
         <Label text="Form Registrasi" styleClass="header-label"/>
 
-        <TextField fx:id="usernameField" promptText="Username" />
-        <PasswordField fx:id="passwordField" promptText="Password" />
-        <PasswordField fx:id="confirmPasswordField" promptText="Konfirmasi Password" />
+        <VBox spacing="5">
+            <TextField fx:id="usernameField" promptText="Username" />
+            <Label fx:id="userErrorLabel" style="-fx-text-fill: #e94560; -fx-font-size: 12px; -fx-font-style: italic;" visible="false" managed="false"/>
+        </VBox>
+        <VBox spacing="5">
+            <PasswordField fx:id="passwordField" promptText="Password" />
+            <Label fx:id="passErrorLabel" style="-fx-text-fill: #e94560; -fx-font-size: 12px; -fx-font-style: italic;" visible="false" managed="false"/>
+        </VBox>
+        <VBox spacing="5">
+            <PasswordField fx:id="confirmPasswordField" promptText="Konfirmasi Password" />
+            <Label fx:id="confirmPassErrorLabel" style="-fx-text-fill: #e94560; -fx-font-size: 12px; -fx-font-style: italic;" visible="false" managed="false"/>
+        </VBox>
 
         <Button text="Daftar" onAction="#handleRegister" prefWidth="300" styleClass="button"/>
         <Button text="Kembali ke Login" onAction="#handleBackToLogin" styleClass="link-button" prefWidth="300"/>

@@ -10,11 +10,55 @@ import java.io.IOException;
 public class LoginController {
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
+    
+    @FXML private Label userErrorLabel;
+    @FXML private Label passErrorLabel;
+
+    @FXML
+    public void initialize() {
+        // Validasi real-time Username (Minimal 5 karakter)
+        usernameField.textProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal.isEmpty()) {
+                showError(userErrorLabel, "Username tidak boleh kosong");
+            } else if (newVal.length() < 5) {
+                showError(userErrorLabel, "Username harus minimal 5 karakter");
+            } else {
+                hideError(userErrorLabel);
+            }
+        });
+
+        // Validasi real-time Password (Minimal 8 karakter)
+        passwordField.textProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal.isEmpty()) {
+                showError(passErrorLabel, "Password tidak boleh kosong");
+            } else if (newVal.length() < 8) {
+                showError(passErrorLabel, "Password harus minimal 8 karakter");
+            } else {
+                hideError(passErrorLabel);
+            }
+        });
+    }
+
+    private void showError(Label label, String message) {
+        label.setText(message);
+        label.setVisible(true);
+        label.setManaged(true);
+    }
+
+    private void hideError(Label label) {
+        label.setVisible(false);
+        label.setManaged(false);
+    }
 
     @FXML
     public void handleLogin() throws IOException {
         String user = usernameField.getText();
         String pass = passwordField.getText();
+
+        if (user == null || pass == null || user.length() < 5 || pass.length() < 8) {
+            showAlert(Alert.AlertType.WARNING, "Peringatan", "Periksa kembali input Anda. Username minimal 5 karakter dan password minimal 8 karakter!");
+            return;
+        }
 
         // 1. Cek Admin
         if (user.equals("admin") && pass.equals("admin111")) {

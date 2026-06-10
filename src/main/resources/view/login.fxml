@@ -17,9 +17,15 @@
 
         <Label text="LOGIN DONOR DARAH" styleClass="header-label"/>
 
-        <TextField fx:id="usernameField" promptText="Username" styleClass="input-field"/>
+        <VBox spacing="5">
+            <TextField fx:id="usernameField" promptText="Username" styleClass="input-field"/>
+            <Label fx:id="userErrorLabel" style="-fx-text-fill: #e94560; -fx-font-size: 12px; -fx-font-style: italic;" visible="false" managed="false"/>
+        </VBox>
 
-        <PasswordField fx:id="passwordField" promptText="Password" styleClass="input-field"/>
+        <VBox spacing="5">
+            <PasswordField fx:id="passwordField" promptText="Password" styleClass="input-field"/>
+            <Label fx:id="passErrorLabel" style="-fx-text-fill: #e94560; -fx-font-size: 12px; -fx-font-style: italic;" visible="false" managed="false"/>
+        </VBox>
 
         <Button text="Login" onAction="#handleLogin" prefWidth="300" styleClass="button"/>
 
