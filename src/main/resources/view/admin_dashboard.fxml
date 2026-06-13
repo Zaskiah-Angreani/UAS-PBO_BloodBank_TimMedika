@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import java.net.URL?>
+
+<BorderPane style="-fx-background-color: #1a1a2e; -fx-padding: 0;"
+            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.bloodblank.controller.AdminController">
+
+    <stylesheets> <URL value="@/style.css" /> </stylesheets>
+
+    <top>
+        <HBox style="-fx-background-color: #232946; -fx-padding: 15;" alignment="CENTER_LEFT">
+            <Label text="🩸 Admin Dashboard" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label text="Selamat datang, Admin" style="-fx-text-fill: #b3b3b3; -fx-font-size: 13px; -fx-padding: 0 15 0 0;"/>
+            <Button text="Logout" onAction="#handleLogout" style="-fx-background-color: #e94560; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-cursor: hand; -fx-padding: 8 20;"/>
+        </HBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;">
+            <VBox spacing="20" style="-fx-padding: 20;">
+
+                <!-- ═══ STATISTIK ═══ -->
+                <HBox spacing="15" alignment="CENTER">
+                    <VBox alignment="CENTER" style="-fx-background-color: #232946; -fx-padding: 18; -fx-background-radius: 12; -fx-min-width: 180;" HBox.hgrow="ALWAYS">
+                        <Label fx:id="statTotalRequest" text="0" style="-fx-text-fill: white; -fx-font-size: 28px; -fx-font-weight: bold;"/>
+                        <Label text="Total Permintaan" style="-fx-text-fill: #b3b3b3; -fx-font-size: 11px; -fx-font-weight: bold;"/>
+                    </VBox>
+                    <VBox alignment="CENTER" style="-fx-background-color: #232946; -fx-padding: 18; -fx-background-radius: 12; -fx-min-width: 180;" HBox.hgrow="ALWAYS">
+                        <Label fx:id="statTotalDonor" text="0" style="-fx-text-fill: white; -fx-font-size: 28px; -fx-font-weight: bold;"/>
+                        <Label text="Total Pendonor" style="-fx-text-fill: #b3b3b3; -fx-font-size: 11px; -fx-font-weight: bold;"/>
+                    </VBox>
+                    <VBox alignment="CENTER" style="-fx-background-color: #232946; -fx-padding: 18; -fx-background-radius: 12; -fx-min-width: 180;" HBox.hgrow="ALWAYS">
+                        <Label fx:id="statDonorMenunggu" text="0" style="-fx-text-fill: #f39c12; -fx-font-size: 28px; -fx-font-weight: bold;"/>
+                        <Label text="Donor Menunggu" style="-fx-text-fill: #b3b3b3; -fx-font-size: 11px; -fx-font-weight: bold;"/>
+                    </VBox>
+                    <VBox alignment="CENTER" style="-fx-background-color: #232946; -fx-padding: 18; -fx-background-radius: 12; -fx-min-width: 180;" HBox.hgrow="ALWAYS">
+                        <Label fx:id="statDonorDisetujui" text="0" style="-fx-text-fill: #4caf50; -fx-font-size: 28px; -fx-font-weight: bold;"/>
+                        <Label text="Donor Disetujui" style="-fx-text-fill: #b3b3b3; -fx-font-size: 11px; -fx-font-weight: bold;"/>
+                    </VBox>
+                </HBox>
+
+                <!-- ═══ MANAJEMEN STOK DARAH ═══ -->
+                <VBox spacing="10" style="-fx-background-color: #232946; -fx-padding: 15; -fx-background-radius: 10;">
+                    <Label text="🏥 Manajemen Stok Darah (Klik Jumlah untuk Edit)" style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;"/>
+                    <TableView fx:id="tabelStok" prefHeight="180">
+                        <columns>
+                            <TableColumn fx:id="colGol" text="Golongan" prefWidth="120"/>
+                            <TableColumn fx:id="colRS" text="Rumah Sakit" prefWidth="250"/>
+                            <TableColumn fx:id="colJumlah" text="Jumlah Stok" prefWidth="120"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+
+                <!-- ═══ VERIFIKASI PENGAJUAN DARAH ═══ -->
+                <VBox spacing="10" style="-fx-background-color: #232946; -fx-padding: 15; -fx-background-radius: 10;">
+                    <Label text="📋 Verifikasi Pengajuan Darah" style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;"/>
+                    <TableView fx:id="tabelRequest" prefHeight="180">
+                        <columns>
+                            <TableColumn fx:id="colIdReq" text="ID" prefWidth="80"/>
+                            <TableColumn fx:id="colPasien" text="Pasien" prefWidth="130"/>
+                            <TableColumn fx:id="colGolReq" text="Gol. Darah" prefWidth="90"/>
+                            <TableColumn fx:id="colKantongReq" text="Kantong" prefWidth="80"/>
+                            <TableColumn fx:id="colRsReq" text="Rumah Sakit" prefWidth="170"/>
+                            <TableColumn fx:id="colStatusRequest" text="Status" prefWidth="100"/>
+                        </columns>
+                    </TableView>
+                    <HBox spacing="10">
+                        <Button text="✅ Setujui Permintaan" onAction="#handleSetuju"
+                                style="-fx-background-color: #4caf50; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-cursor: hand; -fx-padding: 8 18;"/>
+                        <Button text="❌ Tolak Permintaan" onAction="#handleTolak"
+                                style="-fx-background-color: #e94560; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-cursor: hand; -fx-padding: 8 18;"/>
+                    </HBox>
+                </VBox>
+
+                <!-- ═══ KELOLA PENDONOR SUKARELA ═══ -->
+                <VBox spacing="10" style="-fx-background-color: #232946; -fx-padding: 15; -fx-background-radius: 10;">
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label text="🫀 Kelola Pendonor Sukarela" style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="labelInfoDonor" text="" style="-fx-text-fill: #b3b3b3; -fx-font-size: 12px;"/>
+                    </HBox>
+                    <TableView fx:id="tabelDonor" prefHeight="200">
+                        <columns>
+                            <TableColumn fx:id="colIdDonor" text="ID" prefWidth="80"/>
+                            <TableColumn fx:id="colNamaDonor" text="Nama Donor" prefWidth="140"/>
+                            <TableColumn fx:id="colGolDonor" text="Gol. Darah" prefWidth="80"/>
+                            <TableColumn fx:id="colBeratDonor" text="Berat (kg)" prefWidth="80"/>
+                            <TableColumn fx:id="colRsDonor" text="RS Tujuan" prefWidth="160"/>
+                            <TableColumn fx:id="colTglDonor" text="Tanggal" prefWidth="100"/>
+                            <TableColumn fx:id="colStatusDonor" text="Status" prefWidth="100"/>
+                            <TableColumn fx:id="colRequestDonor" text="Untuk Request" prefWidth="100"/>
+                        </columns>
+                    </TableView>
+                    <HBox spacing="10">
+                        <Button text="✅ Setujui Donor" onAction="#handleSetujuiDonor"
+                                style="-fx-background-color: #4caf50; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-cursor: hand; -fx-padding: 8 18;"/>
+                        <Button text="🔗 Pasangkan ke Permintaan" onAction="#handlePasangkanDonor"
+                                style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-cursor: hand; -fx-padding: 8 18;"/>
+                        <Button text="❌ Tolak Donor" onAction="#handleTolakDonor"
+                                style="-fx-background-color: #e94560; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-cursor: hand; -fx-padding: 8 18;"/>
+                    </HBox>
+                </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>
