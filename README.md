@@ -53,4 +53,4 @@ git clone [https://github.com/Zaskiah-Angreani/UAS-PBO_BloodBank_TimMedika]
 * **Frontend**: Jalankan kelas `Main` yang berada di package `org.bloodblank`.
 
 ## Video Presentasi
-[Klik di sini untuk menonton video presentasi aplikasi BloodBank di YouTube]
+https://youtu.be/zhZPhA5DSwk?si=wFGtIZD_lIlEOW6f
