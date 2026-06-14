@@ -2,10 +2,12 @@ package org.bloodblank.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 
 import java.io.IOException;
 
 import org.bloodblank.Main;
+import org.bloodblank.model.UserSession;
 import org.bloodblank.donordarahapi.entity.User;
 import org.bloodblank.donordarahapi.service.UserService;
 
@@ -14,17 +16,10 @@ public class LoginController {
     private final UserService userService =
             Main.getContext().getBean(UserService.class);
 
-    @FXML
-    private TextField usernameField;
-
-    @FXML
-    private PasswordField passwordField;
-
-    @FXML
-    private Label userErrorLabel;
-
-    @FXML
-    private Label passErrorLabel;
+    @FXML private TextField usernameField;
+    @FXML private PasswordField passwordField;
+    @FXML private Label userErrorLabel;
+    @FXML private Label passErrorLabel;
 
     @FXML
     public void initialize() {
@@ -46,6 +41,20 @@ public class LoginController {
                 showError(passErrorLabel, "Password harus minimal 8 karakter");
             } else {
                 hideError(passErrorLabel);
+            }
+        });
+
+        // Tekan Enter di username → pindah fokus ke password
+        usernameField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                passwordField.requestFocus();
+            }
+        });
+
+        // Tekan Enter di password → langsung login
+        passwordField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                try { handleLogin(); } catch (IOException e) { e.printStackTrace(); }
             }
         });
     }
@@ -72,44 +81,26 @@ public class LoginController {
                 username.length() < 5 ||
                 password.length() < 8) {
 
-            showAlert(
-                    Alert.AlertType.WARNING,
-                    "Peringatan",
-                    "Periksa kembali input Anda. Username minimal 5 karakter dan password minimal 8 karakter!"
-            );
+            showAlert(Alert.AlertType.WARNING, "Peringatan",
+                    "Periksa kembali input Anda. Username minimal 5 karakter dan password minimal 8 karakter!");
             return;
         }
 
-        // Login Admin
-        if (username.equals("admin") &&
-                password.equals("admin111")) {
-
+        if (username.equals("admin") && password.equals("admin111")) {
             Main.showAdminDashboard();
             return;
         }
 
-        // Login dari H2 Database
-        User foundUser =
-                userService.login(username, password);
+        User foundUser = userService.login(username, password);
 
         if (foundUser != null) {
-
-            showAlert(
-                    Alert.AlertType.INFORMATION,
-                    "Sukses",
-                    "Login berhasil! Selamat datang, "
-                            + foundUser.getNama()
-            );
-
+            UserSession.getInstance().setCurrentUser(foundUser);
+            showAlert(Alert.AlertType.INFORMATION, "Sukses",
+                    "Login berhasil! Selamat datang, " + foundUser.getNama());
             Main.showDashboard();
-
         } else {
-
-            showAlert(
-                    Alert.AlertType.ERROR,
-                    "Login Gagal",
-                    "Username atau password salah!"
-            );
+            showAlert(Alert.AlertType.ERROR, "Login Gagal",
+                    "Username atau password salah!");
         }
     }
 
@@ -118,17 +109,11 @@ public class LoginController {
         Main.showRegister();
     }
 
-    private void showAlert(
-            Alert.AlertType type,
-            String title,
-            String content) {
-
+    private void showAlert(Alert.AlertType type, String title, String content) {
         Alert alert = new Alert(type);
-
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(content);
-
         alert.showAndWait();
     }
 }
