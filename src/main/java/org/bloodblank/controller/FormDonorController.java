@@ -21,20 +21,13 @@ public class FormDonorController {
 
     @FXML
     public void initialize() {
-        // Mengisi pilihan golongan darah
         comboGolDarah.getItems().addAll("A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-");
 
-        // Pre-fill nama donor dari sesi user saat ini
-        User currentUser = UserSession.getInstance().getCurrentUser();
+        org.bloodblank.donordarahapi.entity.User currentUser =
+                UserSession.getInstance().getCurrentUser();
+
         if (currentUser != null) {
             inputNamaDonor.setText(currentUser.getNama());
-            // Jika user adalah Donor, pre-fill golongan darahnya
-            if (currentUser instanceof Donor) {
-                String gol = ((Donor) currentUser).getGolonganDarah();
-                if (gol != null && !gol.equals("-")) {
-                    comboGolDarah.setValue(gol);
-                }
-            }
         }
     }
 
