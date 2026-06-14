@@ -17,15 +17,13 @@ public class FormDonorSukarelaController {
         comboGolDarah.getItems().addAll("A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-");
         comboRumahSakit.getItems().addAll("RSUD Dr. Pirngadi", "RS USU", "RSUP H. Adam Malik");
 
-        User currentUser = UserSession.getInstance().getCurrentUser();
+        org.bloodblank.donordarahapi.entity.User currentUser =
+                UserSession.getInstance().getCurrentUser();
+
         if (currentUser != null) {
             inputNamaDonor.setText(currentUser.getNama());
-            if (currentUser instanceof Donor) {
-                String gol = ((Donor) currentUser).getGolonganDarah();
-                if (gol != null && !gol.equals("-")) {
-                    comboGolDarah.setValue(gol);
-                }
-            }
+            // instanceof Donor dihapus karena entity User tidak punya golonganDarah
+            // user isi golongan darah manual di form
         }
     }
 
