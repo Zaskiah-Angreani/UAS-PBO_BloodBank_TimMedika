@@ -28,3 +28,29 @@ B. Sisi Admin
     2.Verifikasi Permohonan: Proses persetujuan atau penolakan permohonan darah dari user.
     
     3.Kelola Pendonor: Admin dapat memvalidasi data pendonor dan memasangkan pendonor sukarela dengan permintaan darah yang spesifik untuk efisiensi distribusi.
+
+**#Cara Menjalankan Aplikasi**
+
+A. Prasyarat:
+
+JDK: Versi 17 atau lebih baru.
+
+IDE: IntelliJ IDEA (direkomendasikan).
+
+Build Tool: Maven (sudah terkonfigurasi dalam proyek).
+
+Langkah Instalasi
+
+1. Clone Repository:
+
+git clone [https://github.com/Zaskiah-Angreani/UAS-PBO_BloodBank_TimMedika]
+
+2. **Buka Proyek**: Buka IntelliJ IDEA, pilih *Open*, dan arahkan ke folder proyek ini. Maven akan otomatis mengunduh *dependencies* (Spring Boot, JavaFX, H2 Database) yang tertera pada file `pom.xml`.
+3. **Konfigurasi Database**: Aplikasi menggunakan H2 Database (In-memory), sehingga tidak memerlukan konfigurasi server database eksternal.
+
+### Menjalankan Aplikasi
+* **Backend**: Jalankan kelas `DonorDarahApiApplication`.
+* **Frontend**: Jalankan kelas `Main` yang berada di package `org.bloodblank`.
+
+## Video Presentasi
+[Klik di sini untuk menonton video presentasi aplikasi BloodBank di YouTube]
