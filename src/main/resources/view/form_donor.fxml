@@ -10,7 +10,7 @@
     <stylesheets> <URL value="@/style.css" /> </stylesheets>
 
     <!-- Header -->
-    <Label text="🩸 Formulir Pendaftaran Donor" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+    <Label text=" Formulir Pendaftaran Donor" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;"/>
     <Label text="Isi data berikut untuk mendaftarkan diri sebagai pendonor." style="-fx-text-fill: #b3b3b3; -fx-font-size: 12px;"/>
 
     <!-- Info Permintaan yang Dipilih -->
