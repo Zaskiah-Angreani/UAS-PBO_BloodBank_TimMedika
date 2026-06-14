@@ -86,7 +86,7 @@ public class LoginController {
             return;
         }
 
-        if (username.equals("admin") && password.equals("admin111")) {
+        if (username.equals("admin") && password.equals("admin123")) {
             Main.showAdminDashboard();
             return;
         }
