@@ -3,19 +3,21 @@ package org.bloodblank.controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.bloodblank.Main;
+import org.bloodblank.donordarahapi.entity.Donor;
+import org.bloodblank.donordarahapi.service.DonorService;
 import org.bloodblank.model.*;
 import org.bloodblank.repository.DataRepository;
 
-/**
- * Controller untuk form pendaftaran donor darah.
- * Menangani validasi kelayakan donor dan penyimpanan data pendaftaran.
- */
 public class FormDonorController {
 
     @FXML private Label labelPasien, labelGolDarah, labelRS, labelKantong;
     @FXML private TextField inputNamaDonor, inputBeratBadan, inputUsia;
     @FXML private ComboBox<String> comboGolDarah;
     @FXML private CheckBox checkRiwayat;
+
+    private final DonorService donorService =
+            Main.getContext().getBean(DonorService.class);
 
     private Request currentRequest;
 
@@ -31,9 +33,6 @@ public class FormDonorController {
         }
     }
 
-    /**
-     * Menerima data permintaan darah yang dipilih dari tabel utama.
-     */
     public void setRequest(Request req) {
         this.currentRequest = req;
         labelPasien.setText(req.getPasien());
@@ -44,66 +43,67 @@ public class FormDonorController {
 
     @FXML
     public void handleDaftar() {
-        // --- Validasi Input ---
         String namaDonor = inputNamaDonor.getText().trim();
         String golDarah = comboGolDarah.getValue();
         String beratStr = inputBeratBadan.getText().trim();
         String usiaStr = inputUsia.getText().trim();
 
         if (namaDonor.isEmpty() || golDarah == null || beratStr.isEmpty() || usiaStr.isEmpty()) {
-            showAlert(Alert.AlertType.WARNING, "Data Belum Lengkap", "Harap isi semua kolom yang diperlukan!");
+            showAlert(Alert.AlertType.WARNING, "Data Belum Lengkap",
+                    "Harap isi semua kolom yang diperlukan!");
             return;
         }
 
-        int berat;
-        int usia;
+        int berat, usia;
         try {
             berat = Integer.parseInt(beratStr);
             usia = Integer.parseInt(usiaStr);
         } catch (NumberFormatException e) {
-            showAlert(Alert.AlertType.ERROR, "Input Tidak Valid", "Berat badan dan usia harus berupa angka!");
+            showAlert(Alert.AlertType.ERROR, "Input Tidak Valid",
+                    "Berat badan dan usia harus berupa angka!");
             return;
         }
 
-        // --- Validasi Kelayakan Donor ---
         if (berat < 45) {
             showAlert(Alert.AlertType.WARNING, "Berat Badan Kurang",
                     "Berat badan minimal untuk donor darah adalah 45 kg.\nBerat Anda: " + berat + " kg.");
             return;
         }
-
         if (usia < 17 || usia > 65) {
             showAlert(Alert.AlertType.WARNING, "Usia Tidak Memenuhi Syarat",
                     "Usia donor harus antara 17 - 65 tahun.\nUsia Anda: " + usia + " tahun.");
             return;
         }
-
         if (checkRiwayat.isSelected()) {
             showAlert(Alert.AlertType.WARNING, "Tidak Memenuhi Syarat",
                     "Maaf, Anda tidak memenuhi syarat donor karena memiliki riwayat penyakit menular.");
             return;
         }
-
-        // --- Validasi Kecocokan Golongan Darah ---
         if (!golDarah.equalsIgnoreCase(currentRequest.getGolDarah())) {
             showAlert(Alert.AlertType.WARNING, "Golongan Darah Tidak Cocok",
-                    "Golongan darah Anda (" + golDarah + ") tidak cocok dengan kebutuhan (" + currentRequest.getGolDarah() + ").");
+                    "Golongan darah Anda (" + golDarah + ") tidak cocok dengan kebutuhan ("
+                            + currentRequest.getGolDarah() + ").");
             return;
         }
 
-        // --- Simpan Pendaftaran Donor ---
+        // Simpan ke DataRepository (untuk tampilan JavaFX)
         PendaftaranDonor donorBaru = new PendaftaranDonor(
                 "DON" + (System.currentTimeMillis() % 10000),
-                namaDonor,
-                golDarah,
-                berat,
+                namaDonor, golDarah, berat,
                 currentRequest.getRumahSakit(),
                 java.time.LocalDate.now().toString(),
                 "MENUNGGU",
                 currentRequest.getId()
         );
-
         DataRepository.getListDonor().add(donorBaru);
+
+        // Simpan ke database H2
+        Donor donorEntity = new Donor();
+        donorEntity.setNama(namaDonor);
+        donorEntity.setGolDarah(golDarah);
+        donorEntity.setBeratBadan(berat);
+        donorEntity.setStatus("MENUNGGU");
+        donorService.save(donorEntity);
 
         showAlert(Alert.AlertType.INFORMATION, "Pendaftaran Berhasil",
                 "Terima kasih, " + namaDonor + "!\n\n" +
@@ -113,7 +113,6 @@ public class FormDonorController {
                         "Rumah Sakit: " + currentRequest.getRumahSakit() + "\n\n" +
                         "Silakan datang ke rumah sakit sesuai jadwal yang ditentukan.");
 
-        // Tutup dialog
         ((Stage) inputNamaDonor.getScene().getWindow()).close();
     }
 
