@@ -1,7 +1,9 @@
 package org.bloodblank.controller;
 
 import org.bloodblank.Main;
-import org.bloodblank.model.*;
+import org.bloodblank.donordarahapi.entity.User;
+import org.bloodblank.model.UserSession;
+import org.bloodblank.model.StokDarah;
 import org.bloodblank.repository.DataRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,9 +21,9 @@ public class DashboardController {
 
     @FXML
     public void initialize() {
-        System.out.println("DEBUG: DashboardController berhasil diinisialisasi.");
+        org.bloodblank.donordarahapi.entity.User currentUser =
+                UserSession.getInstance().getCurrentUser();
 
-        User currentUser = UserSession.getInstance().getCurrentUser();
         if (usernameLabel != null && currentUser != null) {
             usernameLabel.setText("Halo, " + currentUser.getNama());
         }
