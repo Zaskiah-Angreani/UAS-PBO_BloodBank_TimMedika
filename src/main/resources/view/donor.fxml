@@ -16,7 +16,7 @@
                 <!-- === HEADER === -->
                 <HBox alignment="CENTER_LEFT" spacing="15">
                     <VBox spacing="5" HBox.hgrow="ALWAYS">
-                        <Label text="🩸 Halaman Mendonor Darah" style="-fx-text-fill: white; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+                        <Label text="Halaman Mendonor Darah" style="-fx-text-fill: white; -fx-font-size: 22px; -fx-font-weight: bold;"/>
                         <Label text="Daftarkan diri Anda sebagai pendonor untuk membantu sesama yang membutuhkan."
                                style="-fx-text-fill: #b3b3b3; -fx-font-size: 14px;"/>
                     </VBox>

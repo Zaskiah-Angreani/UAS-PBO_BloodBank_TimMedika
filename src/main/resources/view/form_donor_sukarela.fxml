@@ -15,14 +15,14 @@
         <VBox spacing="15" style="-fx-padding: 25 25 15 25;">
 
             <!-- Header -->
-            <Label text="🩸 Formulir Donor Sukarela"
+            <Label text="Formulir Donor Sukarela"
                    style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;"/>
             <Label text="Daftarkan diri Anda sebagai pendonor darah sukarela tanpa perlu menunggu permintaan."
                    style="-fx-text-fill: #b3b3b3; -fx-font-size: 12px;" wrapText="true"/>
 
             <!-- Informasi Donor Sukarela -->
             <VBox style="-fx-background-color: #232946; -fx-padding: 15; -fx-background-radius: 10;" spacing="8">
-                <Label text="ℹ️ Tentang Donor Sukarela:"
+                <Label text=" Tentang Donor Sukarela:"
                        style="-fx-text-fill: #4caf50; -fx-font-weight: bold; -fx-font-size: 14px;"/>
                 <Label text="Dengan mendaftar sebagai pendonor sukarela, data Anda akan tersedia dalam sistem kami. Ketika ada pasien yang membutuhkan darah dengan golongan yang sesuai, kami akan menghubungi Anda."
                        style="-fx-text-fill: #b3b3b3; -fx-font-size: 12px;" wrapText="true"/>
