@@ -8,7 +8,7 @@ import org.bloodblank.Main;
 import org.bloodblank.donordarahapi.service.RequestService;
 import org.bloodblank.model.Request;
 import org.bloodblank.model.StokDarah;
-import org.bloodblank.repository.DataRepository;
+import org.bloodblank.donordarahapi.repository.DataRepository;
 
 public class TambahPermintaanController {
 

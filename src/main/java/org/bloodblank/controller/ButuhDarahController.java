@@ -12,7 +12,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.bloodblank.model.Request;
 import org.bloodblank.model.StokDarah;
-import org.bloodblank.repository.DataRepository;
+import org.bloodblank.donordarahapi.repository.DataRepository;
 import java.io.IOException;
 
 public class ButuhDarahController {

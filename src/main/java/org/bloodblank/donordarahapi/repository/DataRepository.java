@@ -1,4 +1,4 @@
-package org.bloodblank.repository;
+package org.bloodblank.donordarahapi.repository;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

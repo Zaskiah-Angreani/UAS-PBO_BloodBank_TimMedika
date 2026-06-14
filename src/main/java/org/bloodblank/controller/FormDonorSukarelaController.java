@@ -7,7 +7,7 @@ import org.bloodblank.Main;
 import org.bloodblank.donordarahapi.entity.Donor;
 import org.bloodblank.donordarahapi.service.DonorService;
 import org.bloodblank.model.*;
-import org.bloodblank.repository.DataRepository;
+import org.bloodblank.donordarahapi.repository.DataRepository;
 
 public class FormDonorSukarelaController {
 

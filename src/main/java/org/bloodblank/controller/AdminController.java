@@ -8,7 +8,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.IntegerStringConverter;
 import org.bloodblank.model.*;
-import org.bloodblank.repository.DataRepository;
+import org.bloodblank.donordarahapi.repository.DataRepository;
 import org.bloodblank.Main;
 
 import java.io.IOException;

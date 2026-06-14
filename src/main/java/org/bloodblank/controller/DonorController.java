@@ -1,6 +1,5 @@
 package org.bloodblank.controller;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +10,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.bloodblank.model.*;
-import org.bloodblank.repository.DataRepository;
+import org.bloodblank.donordarahapi.repository.DataRepository;
 
 import java.io.IOException;
 

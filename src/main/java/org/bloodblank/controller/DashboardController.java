@@ -1,10 +1,9 @@
 package org.bloodblank.controller;
 
 import org.bloodblank.Main;
-import org.bloodblank.donordarahapi.entity.User;
 import org.bloodblank.model.UserSession;
 import org.bloodblank.model.StokDarah;
-import org.bloodblank.repository.DataRepository;
+import org.bloodblank.donordarahapi.repository.DataRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
