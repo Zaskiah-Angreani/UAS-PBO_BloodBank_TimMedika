@@ -8,6 +8,7 @@ mempercepat koordinasi antara pasien yang membutuhkan darah dan pendonor. Aplika
 memvalidasi permohonan pasien, serta mengorganisir pendonor dengan efisien untuk memastikan setiap kebutuhan medis terpenuhi dengan cepat dan transparan.
 
 **#Fitur Utama**
+
 A. Sisi User (Pasien & Pendonor)
     1.Dashboard Statistik: Memantau progres pengajuan permintaan darah secara mandiri.
     2.Pengajuan Permintaan Darah: User dapat mengajukan permohonan darah dan memantau status verifikasi dari Admin.
