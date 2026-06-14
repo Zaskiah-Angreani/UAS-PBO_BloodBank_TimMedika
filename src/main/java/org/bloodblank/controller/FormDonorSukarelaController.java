@@ -3,6 +3,9 @@ package org.bloodblank.controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.bloodblank.Main;
+import org.bloodblank.donordarahapi.entity.Donor;
+import org.bloodblank.donordarahapi.service.DonorService;
 import org.bloodblank.model.*;
 import org.bloodblank.repository.DataRepository;
 
@@ -11,6 +14,9 @@ public class FormDonorSukarelaController {
     @FXML private TextField inputNamaDonor, inputBeratBadan, inputUsia;
     @FXML private ComboBox<String> comboGolDarah, comboRumahSakit;
     @FXML private CheckBox checkRiwayat;
+
+    private final DonorService donorService =
+            Main.getContext().getBean(DonorService.class);
 
     @FXML
     public void initialize() {
@@ -22,8 +28,6 @@ public class FormDonorSukarelaController {
 
         if (currentUser != null) {
             inputNamaDonor.setText(currentUser.getNama());
-            // instanceof Donor dihapus karena entity User tidak punya golonganDarah
-            // user isi golongan darah manual di form
         }
     }
 
@@ -68,6 +72,7 @@ public class FormDonorSukarelaController {
             return;
         }
 
+        // Simpan ke DataRepository (untuk tampilan JavaFX)
         PendaftaranDonor donorBaru = new PendaftaranDonor(
                 "DON" + (System.currentTimeMillis() % 10000),
                 namaDonor, golDarah, berat, rumahSakit,
@@ -75,6 +80,14 @@ public class FormDonorSukarelaController {
                 "TERSEDIA", "SUKARELA"
         );
         DataRepository.getListDonor().add(donorBaru);
+
+        // Simpan ke database H2
+        Donor donorEntity = new Donor();
+        donorEntity.setNama(namaDonor);
+        donorEntity.setGolDarah(golDarah);
+        donorEntity.setBeratBadan(berat);
+        donorEntity.setStatus("TERSEDIA");
+        donorService.save(donorEntity);
 
         showAlert(Alert.AlertType.INFORMATION, "Pendaftaran Berhasil",
                 "Terima kasih, " + namaDonor + "!\n\n" +
