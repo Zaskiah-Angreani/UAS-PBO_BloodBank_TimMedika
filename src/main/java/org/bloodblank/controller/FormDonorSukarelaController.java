@@ -80,10 +80,10 @@ public class FormDonorSukarelaController {
 
         showAlert(Alert.AlertType.INFORMATION, "Pendaftaran Berhasil",
                 "Terima kasih, " + namaDonor + "!\n\n" +
-                "Anda telah terdaftar sebagai pendonor sukarela.\n" +
-                "Golongan Darah: " + golDarah + "\n" +
-                "Lokasi Donor: " + rumahSakit + "\n\n" +
-                "Data Anda akan tersedia bagi yang membutuhkan.");
+                        "Anda telah terdaftar sebagai pendonor sukarela.\n" +
+                        "Golongan Darah: " + golDarah + "\n" +
+                        "Lokasi Donor: " + rumahSakit + "\n\n" +
+                        "Data Anda akan tersedia bagi yang membutuhkan.");
 
         ((Stage) inputNamaDonor.getScene().getWindow()).close();
     }

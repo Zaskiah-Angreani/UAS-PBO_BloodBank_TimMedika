@@ -1,22 +1,34 @@
 package org.bloodblank.controller;
 
-import org.bloodblank.Main;
-import org.bloodblank.model.*;
-import org.bloodblank.repository.DataRepository;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+
 import java.io.IOException;
 
+import org.bloodblank.Main;
+import org.bloodblank.donordarahapi.entity.User;
+import org.bloodblank.donordarahapi.service.UserService;
+
 public class LoginController {
-    @FXML private TextField usernameField;
-    @FXML private PasswordField passwordField;
-    
-    @FXML private Label userErrorLabel;
-    @FXML private Label passErrorLabel;
+
+    private final UserService userService =
+            Main.getContext().getBean(UserService.class);
+
+    @FXML
+    private TextField usernameField;
+
+    @FXML
+    private PasswordField passwordField;
+
+    @FXML
+    private Label userErrorLabel;
+
+    @FXML
+    private Label passErrorLabel;
 
     @FXML
     public void initialize() {
-        // Validasi real-time Username (Minimal 5 karakter)
+
         usernameField.textProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal.isEmpty()) {
                 showError(userErrorLabel, "Username tidak boleh kosong");
@@ -27,7 +39,6 @@ public class LoginController {
             }
         });
 
-        // Validasi real-time Password (Minimal 8 karakter)
         passwordField.textProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal.isEmpty()) {
                 showError(passErrorLabel, "Password tidak boleh kosong");
@@ -52,35 +63,53 @@ public class LoginController {
 
     @FXML
     public void handleLogin() throws IOException {
-        String user = usernameField.getText();
-        String pass = passwordField.getText();
 
-        if (user == null || pass == null || user.length() < 5 || pass.length() < 8) {
-            showAlert(Alert.AlertType.WARNING, "Peringatan", "Periksa kembali input Anda. Username minimal 5 karakter dan password minimal 8 karakter!");
+        String username = usernameField.getText();
+        String password = passwordField.getText();
+
+        if (username == null ||
+                password == null ||
+                username.length() < 5 ||
+                password.length() < 8) {
+
+            showAlert(
+                    Alert.AlertType.WARNING,
+                    "Peringatan",
+                    "Periksa kembali input Anda. Username minimal 5 karakter dan password minimal 8 karakter!"
+            );
             return;
         }
 
-        // 1. Cek Admin
-        if (user.equals("admin") && pass.equals("admin111")) {
+        // Login Admin
+        if (username.equals("admin") &&
+                password.equals("admin111")) {
+
             Main.showAdminDashboard();
             return;
         }
 
-        // 2. Cek User di Repository
-        User foundUser = null;
-        for (User u : DataRepository.getListUser()) {
-            if (u.getUsername().equals(user) && u.getPassword().equals(pass)) {
-                foundUser = u;
-                break;
-            }
-        }
+        // Login dari H2 Database
+        User foundUser =
+                userService.login(username, password);
 
         if (foundUser != null) {
-            UserSession.getInstance().setCurrentUser(foundUser);
-            showAlert(Alert.AlertType.INFORMATION, "Sukses", "Login Berhasil! Selamat datang, " + foundUser.getNama());
+
+            showAlert(
+                    Alert.AlertType.INFORMATION,
+                    "Sukses",
+                    "Login berhasil! Selamat datang, "
+                            + foundUser.getNama()
+            );
+
             Main.showDashboard();
+
         } else {
-            showAlert(Alert.AlertType.ERROR, "Login Gagal", "Username atau Password salah atau belum terdaftar!");
+
+            showAlert(
+                    Alert.AlertType.ERROR,
+                    "Login Gagal",
+                    "Username atau password salah!"
+            );
         }
     }
 
@@ -89,11 +118,17 @@ public class LoginController {
         Main.showRegister();
     }
 
-    private void showAlert(Alert.AlertType type, String title, String content) {
+    private void showAlert(
+            Alert.AlertType type,
+            String title,
+            String content) {
+
         Alert alert = new Alert(type);
+
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(content);
+
         alert.showAndWait();
     }
 }

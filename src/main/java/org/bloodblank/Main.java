@@ -6,26 +6,40 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
+import org.springframework.boot.SpringApplication;
+import org.bloodblank.donordarahapi.DonorDarahApiApplication;
+import org.springframework.context.ConfigurableApplicationContext;
+
 import java.io.IOException;
 
 public class Main extends Application {
 
     private static Stage primaryStage;
+    private static ConfigurableApplicationContext context;
+
+    @Override
+    public void init() {
+        context = SpringApplication.run(DonorDarahApiApplication.class);
+    }
 
     @Override
     public void start(Stage stage) throws Exception {
         primaryStage = stage;
         primaryStage.setTitle("Sistem Manajemen Donor Darah");
 
-        // Inisialisasi awal scene dengan ukuran default
-        primaryStage.setScene(new Scene(new StackPane(), 900, 650));
+        primaryStage.setScene(
+                new Scene(new StackPane(), 900, 650)
+        );
+
         primaryStage.setMaximized(true);
 
-        // Memulai aplikasi dari halaman Login
         showLogin();
     }
 
-    // --- Navigation Methods ---
+    public static ConfigurableApplicationContext getContext() {
+        return context;
+    }
 
     public static void showLogin() throws IOException {
         loadScene("/view/login.fxml");
@@ -43,19 +57,22 @@ public class Main extends Application {
         loadScene("/view/admin_dashboard.fxml");
     }
 
-    // --- Helper Method ---
+    private static void loadScene(String fxmlPath)
+            throws IOException {
 
-    private static void loadScene(String fxmlPath) throws IOException {
-        // Menggunakan resource loading yang standar
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource(fxmlPath));
+        FXMLLoader loader =
+                new FXMLLoader(
+                        Main.class.getResource(fxmlPath)
+                );
+
         Parent root = loader.load();
 
-        // Mengganti root dari scene yang sudah ada (efisien untuk ganti halaman)
         if (primaryStage.getScene() == null) {
             primaryStage.setScene(new Scene(root));
         } else {
             primaryStage.getScene().setRoot(root);
         }
+
         primaryStage.show();
     }
 

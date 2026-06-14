@@ -114,11 +114,11 @@ public class FormDonorController {
 
         showAlert(Alert.AlertType.INFORMATION, "Pendaftaran Berhasil",
                 "Terima kasih, " + namaDonor + "!\n\n" +
-                "Data pendaftaran donor Anda telah tersimpan.\n" +
-                "Golongan Darah: " + golDarah + "\n" +
-                "Untuk Pasien: " + currentRequest.getPasien() + "\n" +
-                "Rumah Sakit: " + currentRequest.getRumahSakit() + "\n\n" +
-                "Silakan datang ke rumah sakit sesuai jadwal yang ditentukan.");
+                        "Data pendaftaran donor Anda telah tersimpan.\n" +
+                        "Golongan Darah: " + golDarah + "\n" +
+                        "Untuk Pasien: " + currentRequest.getPasien() + "\n" +
+                        "Rumah Sakit: " + currentRequest.getRumahSakit() + "\n\n" +
+                        "Silakan datang ke rumah sakit sesuai jadwal yang ditentukan.");
 
         // Tutup dialog
         ((Stage) inputNamaDonor.getScene().getWindow()).close();
