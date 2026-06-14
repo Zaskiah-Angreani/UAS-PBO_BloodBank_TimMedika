@@ -1,13 +1,14 @@
 package org.bloodblank.model;
 
+import org.bloodblank.donordarahapi.entity.User;
+
 public class UserSession {
     private static UserSession instance;
-    private User currentUser;
 
-    // Private constructor agar tidak bisa di-instansiasi dari luar
+    private org.bloodblank.donordarahapi.entity.User currentUser;
+
     private UserSession() {}
 
-    // Singleton instance access
     public static UserSession getInstance() {
         if (instance == null) {
             instance = new UserSession();
@@ -15,12 +16,11 @@ public class UserSession {
         return instance;
     }
 
-    // Encapsulated setters/getters
-    public void setCurrentUser(User user) {
+    public void setCurrentUser(org.bloodblank.donordarahapi.entity.User user) {
         this.currentUser = user;
     }
 
-    public User getCurrentUser() {
+    public org.bloodblank.donordarahapi.entity.User getCurrentUser() {
         return currentUser;
     }
 
